@@ -1,0 +1,118 @@
+## section 2 - basics
+
+- import into html
+
+```html
+<script src="https://unpkg.com/vue@3.4.9/dist/vue.global.js"></script>
+```
+
+- const app = Vue.createApp({}).mount("#user-goal");
+
+```js
+const app = Vue.createApp({
+  data() {
+    return {
+      courseGoal: "finish the course and learn vue",
+      vueLink: "https://vuejs.org/",
+    };
+  },
+  methods: {
+    outputGoal() {
+      const randomNumber = Math.random();
+      if (randomNumber < 0.5) {
+        return "learn vue";
+      } else {
+        return "master vue";
+      }
+    },
+  },
+}).mount("#user-goal");
+```
+
+- use data interpoliation between html tags `{{}}`
+  - data(),
+  - methods: {}
+- use `v-bind:href` for html attributes eg. <a v-bind:href="vueLink">
+- functions - if you define methods, you call it like a {{ method() }}
+- from methods refer to data() attributes via `this`
+- BUT if it is an html string...use `v-html`
+- `v-on:click="add"`
+- methods by default receive in methods "event" -> event.target.value
+
+### 27 - passing event AND your own arguments
+
+- if you need the event AND to pass a value:
+
+```html
+<input type="text" v-on:input="setName($event, 'something')" />
+```
+
+then in javascript - it can be the first param
+
+```js
+methods: {
+  setName(event, lastName);
+}
+```
+
+## 28. event modifier
+
+- method has event which you call `event.preventDefault()`
+
+```html
+<form v-on:submit="submitForm">
+  <input type="text" />
+  <button>Sign up</button>
+</form>
+```
+
+- vs. event modifier
+- form handler .prevent is a modifier for form `<form v-on:submit.prevent="submitForm">`
+
+```html
+<form v-on:submit.prevent="submitForm">
+  <input type="text" />
+  <button>Sign up</button>
+</form>
+```
+
+### key modifier
+
+- v-on:keyup.enter
+
+```html
+<input
+  v-on:input="setName($event, 'surname')"
+  v-on:keyup.enter="confirmInput"
+  type="text"
+/>
+```
+
+## v-once
+
+- binding should only happen once
+
+```html
+<p v-once>Starting counter: {{counter}}</p>
+```
+
+## 30. data binding + event binding = two way binding
+
+- `v-bind:value="name"`
+
+```html
+<input
+  type="text"
+  v-bind:value="name"
+  v-on:input="setName($event, 'Schwarzmüller')"
+/>
+```
+
+### v-model
+
+- 2-way binding
+- replace with `<input type="text" v-model="name" />`
+
+## 32. computed properties
+
+## 33 watchers
