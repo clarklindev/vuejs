@@ -67,7 +67,7 @@ methods: {
 }
 ```
 
-## 28. event modifier
+### Exploring Event Modifiers
 
 - method has event which you call `event.preventDefault()`
 
@@ -88,8 +88,13 @@ methods: {
 </form>
 ```
 
-### key modifier
+- modifiers for reacting to mouse right-click only
 
+```html
+<button v-on:click.right="reduce(5)">Reduce</button>
+```
+
+- key modifier
 - v-on:keyup.enter
 
 ```html
