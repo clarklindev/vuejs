@@ -46,9 +46,12 @@ const app = Vue.createApp({
 ### Events & Methods
 
 - `v-on:click="add"`
+
+### Using the Native Event Object
+
 - methods by default receive in methods "event" -> event.target.value
 
-### 27 - passing event AND your own arguments
+### Using the Native Event Object (passing event AND your own arguments)
 
 - if you need the event AND to pass a value:
 
