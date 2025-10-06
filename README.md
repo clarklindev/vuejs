@@ -130,6 +130,31 @@ methods: {
 - 2-way binding
 - replace with `<input type="text" v-model="name" />`
 
-## 32. computed properties
+### computed properties
+
+- when calling a computed property, you call it like {{fullname}} not {{ fullname() }}
+
+- vue is aware of the dependencies of computed properties, caches value, only recalculate and reevaluate if dependency changed.
+- only use methods when you want to recaculate a method when anything on a page changes (rarely the case)
+- you still bind events to methods (NOT to computed properties)
+- use computed properties to output
+
+```js
+const app = Vue.createApp({
+  computed: {
+    fullname() {
+      if (this.name === "") {
+        return "";
+      }
+      return this.name + " " + "Schwarzmüller";
+    },
+  },
+  //...
+});
+```
+
+```html
+<p>Your Name: {{ fullname }}</p>
+```
 
 ## 33 watchers
