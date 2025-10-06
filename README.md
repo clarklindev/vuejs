@@ -34,6 +34,9 @@ const app = Vue.createApp({
   - methods: {}
 - use `v-bind:href` for html attributes eg. <a v-bind:href="vueLink">
 - functions - if you define methods, you call it like a {{ method() }}
+
+### Working with Data inside of a Vue App
+
 - from methods refer to data() attributes via `this`
 - BUT if it is an html string...use `v-html`
 - `v-on:click="add"`
