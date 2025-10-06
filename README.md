@@ -179,3 +179,13 @@ Examples:
 ```
 
 - shorthand for 'v-bind:' is to drop the 'v-bind' and just have the colon
+
+### dynamic styling with inline styles
+
+```html
+<div
+  class="demo"
+  v-bind:style="{borderColor: boxCSelected ? 'red' : '#CCC'}"
+  @click="boxSelected('C')"
+></div>
+```
