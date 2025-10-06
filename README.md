@@ -113,7 +113,7 @@ methods: {
 <p v-once>Starting counter: {{counter}}</p>
 ```
 
-## 30. data binding + event binding = two way binding
+### data binding + event binding = two way binding
 
 - `v-bind:value="name"`
 
@@ -125,7 +125,7 @@ methods: {
 />
 ```
 
-### v-model
+- v-model directive
 
 - 2-way binding
 - replace with `<input type="text" v-model="name" />`
