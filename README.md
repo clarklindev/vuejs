@@ -189,3 +189,24 @@ Examples:
   @click="boxSelected('C')"
 ></div>
 ```
+
+### Adding CSS Classes Dynamically
+
+- option 1 - using ternarary expression
+
+```html
+<div
+  v-bind:class="{boxASelected ? 'demo active': 'demo'}"
+  @click="boxSelected('B')"
+></div>
+```
+
+- option 2 - use an object and add properties where property names are the css classes and values are true/false or truthy/falsy indicating whether class should be added
+
+```html
+<div
+  class="demo"
+  v-bind:class="{active: boxASelected}"
+  @click="boxSelected('A')"
+></div>
+```
