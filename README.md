@@ -43,6 +43,8 @@ const app = Vue.createApp({
 
 - BUT if it is an html string...use `v-html`
 
+### Events & Methods
+
 - `v-on:click="add"`
 - methods by default receive in methods "event" -> event.target.value
 
