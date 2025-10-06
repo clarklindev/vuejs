@@ -105,7 +105,7 @@ methods: {
 />
 ```
 
-## v-once
+### v-once
 
 - binding should only happen once
 
