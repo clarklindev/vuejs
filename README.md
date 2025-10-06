@@ -210,3 +210,25 @@ Examples:
   @click="boxSelected('A')"
 ></div>
 ```
+
+### Classes & Computed Properties
+
+- moving the classes to the computed properties
+
+```html
+<div class="demo" v-bind:class="boxAClasses" @click="boxSelected('A')"></div>
+```
+
+```js
+const app = Vue.createApp({
+  //...
+  computed: {
+    boxAClasses() {
+      return { active: this.boxASelected };
+    },
+  },
+  //...
+});
+
+app.mount("#styling");
+```

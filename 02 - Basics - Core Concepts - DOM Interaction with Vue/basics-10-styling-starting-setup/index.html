@@ -18,26 +18,27 @@
     </header>
     <section id="styling">
       <!-- dynamic styling with inline styles -->
-
       <!-- <div
         class="demo"
         v-bind:style="{borderColor: boxASelected ? 'red' : '#CCC'}"
         @click="boxSelected('A')"
       ></div> -->
 
-      <!-- Adding CSS Classes Dynamically -->
+      <!-- Classes & Computed Properties -->
       <div
         class="demo"
-        v-bind:class="{active: boxASelected}"
+        v-bind:class="boxAClasses"
         @click="boxSelected('A')"
       ></div>
 
+      <!-- Adding CSS Classes Dynamically -->
       <div
         class="demo"
         v-bind:class="{active: boxBSelected}"
         @click="boxSelected('B')"
       ></div>
 
+      <!-- Adding CSS Classes Dynamically -->
       <div
         class="demo"
         v-bind:class="{active: boxCSelected}"
