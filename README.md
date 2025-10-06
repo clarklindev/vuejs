@@ -232,3 +232,14 @@ const app = Vue.createApp({
 
 app.mount("#styling");
 ```
+
+### Dynamic Classes Array Syntax
+
+- using array syntax
+
+```html
+<div
+  v-bind:class="['demo', {active: boxBSelected}]"
+  @click="boxSelected('B')"
+></div>
+```

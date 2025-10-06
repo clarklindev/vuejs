@@ -31,10 +31,9 @@
         @click="boxSelected('A')"
       ></div>
 
-      <!-- Adding CSS Classes Dynamically -->
+      <!-- Dynamic Classes Array Syntax -->
       <div
-        class="demo"
-        v-bind:class="{active: boxBSelected}"
+        v-bind:class="['demo', {active: boxBSelected}]"
         @click="boxSelected('B')"
       ></div>
 
