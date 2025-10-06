@@ -38,7 +38,11 @@ const app = Vue.createApp({
 ### Working with Data inside of a Vue App
 
 - from methods refer to data() attributes via `this`
+
+### Outputting Raw HTML Content with v-html
+
 - BUT if it is an html string...use `v-html`
+
 - `v-on:click="add"`
 - methods by default receive in methods "event" -> event.target.value
 
