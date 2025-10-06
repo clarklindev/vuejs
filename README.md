@@ -157,4 +157,15 @@ const app = Vue.createApp({
 <p>Your Name: {{ fullname }}</p>
 ```
 
-## 33 watchers
+### watchers
+
+- A function that runs automatically when a watched data or computed property changes.
+- Defined inside a watch option e.g., watch: { name(newValue, oldValue){} }
+- a watcher automatically gets the last value of data or computed property as an argument
+- Useful when you want to perform side effects based on data changes, not compute values.
+
+Examples:
+
+- Reset a counter when it exceeds 50.
+- Send an HTTP request when data changes.
+- Trigger a timer or perform async actions.

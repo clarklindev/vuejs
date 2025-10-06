@@ -27,6 +27,8 @@
         v-on:input="setName($event, 'Schwarzmüller')"
       /> -->
       <input type="text" v-model="name" />
+      <input type="text" v-model="lastName" />
+
       <button v-on:click="resetInput">reset input</button>
       <p>Your Name: {{ fullname }}</p>
     </section>
