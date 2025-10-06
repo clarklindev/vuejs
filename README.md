@@ -169,3 +169,13 @@ Examples:
 - Reset a counter when it exceeds 50.
 - Send an HTTP request when data changes.
 - Trigger a timer or perform async actions.
+
+### v-bind and v-on Shorthands
+
+- shorthand for 'v-on:' is @
+
+```html
+<button @click=""></button>
+```
+
+- shorthand for 'v-bind:' is to drop the 'v-bind' and just have the colon
