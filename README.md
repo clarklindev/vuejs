@@ -326,3 +326,19 @@ const app = Vue.createApp({
   </li>
 </ul>
 ```
+
+### Lists & Keys
+
+- using unique keys for v-for
+
+```html
+<ul v-else>
+  <li
+    v-for="(goal, index) in goals"
+    v-bind:key="goal"
+    @click="removeGoal(index)"
+  >
+    {{goal}} - {{index}}
+  </li>
+</ul>
+```
