@@ -25,9 +25,8 @@
         No goals have been added yet - please start adding some!
       </p>
       <ul v-else>
-        <li>Goal</li>
+        <li v-for="goal in goals">{{goal}}</li>
       </ul>
-      <p v-show="goals.length === 0">NO GOAL</p>
     </section>
   </body>
 </html>

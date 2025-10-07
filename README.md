@@ -268,3 +268,9 @@ app.mount("#styling");
 ```html
 <p v-show="goals.length === 0">NO GOAL</p>
 ```
+
+### Rendering Lists of Data
+
+```html
+<li v-for="goal in goals">{{goal}}</li>
+```
