@@ -243,3 +243,28 @@ app.mount("#styling");
   @click="boxSelected('B')"
 ></div>
 ```
+
+---
+
+## 03 - Rendering Conditional Content & Lists
+
+### Rendering Content Conditionally
+
+### v-if, v-else and v-else-if
+
+```html
+<p v-if="goals.length === 0">
+  No goals have been added yet - please start adding some!
+</p>
+<ul v-else>
+  <li>Goal</li>
+</ul>
+```
+
+### Using v-show Instead Of v-if
+
+- with v-show, it only adds a 'display:none' (show/hide) - doesnt remove from DOM
+
+```html
+<p v-show="goals.length === 0">NO GOAL</p>
+```
