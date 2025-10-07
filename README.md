@@ -300,3 +300,29 @@ app.mount("#styling");
   <li v-for="num in 10">{{num}}</li>
 </ul>
 ```
+
+### Removing List Items
+
+```js
+// app.js
+const app = Vue.createApp({
+  data() {
+    return {
+      goals: [],
+    };
+  },
+  methods: {
+    removeGoal(index) {
+      this.goals.splice(index, 1);
+    },
+  },
+});
+```
+
+```html
+<ul v-else>
+  <li v-for="(goal, index) in goals" @click="removeGoal(index)">
+    {{goal}} - {{index}}
+  </li>
+</ul>
+```
