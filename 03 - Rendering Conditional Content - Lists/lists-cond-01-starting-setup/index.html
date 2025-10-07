@@ -25,7 +25,20 @@
         No goals have been added yet - please start adding some!
       </p>
       <ul v-else>
-        <li v-for="goal in goals">{{goal}}</li>
+        <!-- using the index with v-for -->
+        <li v-for="(goal, index) in goals">{{goal}} - {{index}}</li>
+      </ul>
+
+      <!-- looping through objects with v-for -->
+      <ul>
+        <li v-for="(value, key, index) in {name:'Max', age:31}">
+          {{key}} : {{value}} - {{index}}
+        </li>
+      </ul>
+
+      <!-- looping through numbers -->
+      <ul>
+        <li v-for="num in 10">{{num}}</li>
       </ul>
     </section>
   </body>

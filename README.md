@@ -274,3 +274,29 @@ app.mount("#styling");
 ```html
 <li v-for="goal in goals">{{goal}}</li>
 ```
+
+### Diving Deeper Into v-for
+
+- using the index with v-for
+
+```html
+<li v-for="(goal, index) in goals">{{goal}} - {{index}}</li>
+```
+
+- looping through objects with v-for
+
+```html
+<ul>
+  <li v-for="(value, key, index) in {name:'Max', age:31}">
+    {{key}} : {{value}} - {{index}}
+  </li>
+</ul>
+```
+
+- looping through numbers
+
+```html
+<ul>
+  <li v-for="num in 10">{{num}}</li>
+</ul>
+```
