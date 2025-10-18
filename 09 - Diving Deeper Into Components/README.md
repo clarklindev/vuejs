@@ -317,6 +317,12 @@ body {
 </template>
 ```
 
-```
+### Working with Fragments
 
-```
+- can have many top level elements (fragments) (vue 2 required one top level element per template)
+
+### The Vue Style Guide
+
+- https://v2.vuejs.org/v2/style-guide/?redirect=true
+
+### Moving to a Different Folder Structure
