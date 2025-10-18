@@ -140,3 +140,50 @@ you can write #
 ```vue
 <template #default></template>
 ```
+
+## Scoped Slots
+
+- we may want to make the contents of `<li>` customizable..
+- eg you want to pass the 'template' into the component from the outside (eg from App.vue)
+- scoped slots let you pass data from 'inside' the component where you define the slot eg. CourseGoals.vue,
+  to the component where you pass the markup for the slot eg. App.vue
+- on the slot, add a prop (eg. `item`) and bind it `:item=goal`
+- what you set on the slot, is now accessible from where you pass data for that slot eg. App.vue
+- so we are making `item` (which is assigned value 'goal') accessible to App.vue
+
+```vue
+// CourseGoals.vue
+<template>
+  <ul>
+    <li v-for="goal of goals" :key="goal">
+      <slot :item="goal" another-prop="..."></slot>
+    </li>
+  </ul>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      goals: ["Finish the course", "Learn Vue"],
+    };
+  },
+};
+</script>
+```
+
+- in App.vue, add a `<template>` around the slot markup
+- on `<template>` use `v-slot` or `#` (shorthand) on default or named slot, and define anyname of your choice... eg. slotProps - which will be an object where all the props you define on the slot `<slot :item="goal"></slot>` are merged in.
+- now you can use `slotProps` inside the App.vue template to access any attribute eg. `item` defined on the `<slot>` eg. slotProps.item `<h2>{{ slotProps.item }}</h2>`
+
+```vue
+//App.vue
+<template>
+  <course-goals>
+    <template #default="slotProps">
+      <h2>{{ slotProps.item }}</h2>
+      <p>{{ slotProps["another-prop"] }}</p>
+    </template>
+  </course-goals>
+</template>
+```

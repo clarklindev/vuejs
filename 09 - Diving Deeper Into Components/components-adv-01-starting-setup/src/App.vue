@@ -7,6 +7,7 @@
       :info-text="activeUser.description"
       :role="activeUser.role"
     ></user-info>
+    <course-goals></course-goals>
   </div>
 </template>
 
@@ -14,12 +15,14 @@
 import TheHeader from "./components/TheHeader.vue";
 import UserInfo from "./components/UserInfo.vue";
 import BadgeList from "./components/BadgeList.vue";
+import CourseGoals from "./components/CourseGoals.vue";
 
 export default {
   components: {
     "the-header": TheHeader,
     "user-info": UserInfo,
     "badge-list": BadgeList,
+    CourseGoals, //will be usable as 'course-goals'
   },
   data() {
     return {
