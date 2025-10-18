@@ -89,3 +89,54 @@ export default {
 ## Slot Styles & Compilation
 
 - even if you send markup into a slot, the style is for the template before its sent into the component not where you send to.
+
+## More on Slots
+
+- slots that dont receive content can render default content
+
+```vue
+<slot name="header">
+  <h2>The default</h2>
+</slot>
+```
+
+- with `$slots` you can use that data to see if you receive information for the slot and then render it conditionally only if there is data
+- this.$slots.header
+- this.$slots.default
+
+BaseCard.vue
+
+```vue
+<template>
+  <div>
+    <header v-if="$slots.header">
+      <slot name="header">
+        <!-- <h2>The default</h2> -->
+      </slot>
+    </header>
+    <slot></slot>
+  </div>
+</template>
+
+<script>
+export default {
+  mounted() {
+    console.log(this.$slots.header);
+  },
+};
+</script>
+```
+
+### shortcut for v-slot:
+
+instead of
+
+```vue
+<template v-slot:default></template>
+```
+
+you can write #
+
+```vue
+<template #default></template>
+```
