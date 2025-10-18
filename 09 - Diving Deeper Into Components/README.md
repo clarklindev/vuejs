@@ -278,3 +278,45 @@ body {
   </keep-alive>
 </template>
 ```
+
+### Applying What We Know & A Problem
+
+- we create an error-alert component
+- styling happens inside `<error-alert>` component while the template is in `ManagedGoals.vue`
+
+```vue
+<template>
+  <error-alert v-if="inputIsInvalid">
+    <h2>Input is invalid</h2>
+    <p>Please enter at least a few characters...</p>
+    <button @click="confirmError">ok</button>
+  </error-alert>
+</template>
+```
+
+### Teleporting Elements
+
+- the problem with having the `<error-alert>` inline with the rest of the html is that its semmantically incorrect (and accessibility), its supposed to be an overlay on the whole page
+
+#### teleport
+
+- wrap the content to be teleported elsewhere with `<teleport>`
+- teleport wants a `to` prop pointing to a css selector - selecting an html element on entire page where content should actually be added to in html markup eg. `<teleport to="body">`
+- means render this directly in `body` element
+
+```vue
+//ManagedGoals.vue
+<template>
+  <teleport to="body">
+    <error-alert v-if="inputIsInvalid">
+      <h2>Input is invalid</h2>
+      <p>Please enter at least a few characters...</p>
+      <button @click="confirmError">ok</button>
+    </error-alert>
+  </teleport>
+</template>
+```
+
+```
+
+```
