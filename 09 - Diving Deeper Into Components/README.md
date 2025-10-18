@@ -251,3 +251,30 @@ body {
 }
 </style>
 ```
+
+## Keeping Dynamic Components Alive
+
+- if you type into the input and change `selectedComponent` the component is actually destroyed and input is lost
+
+```vue
+//ManagedGoals.vue
+<template>
+  <div>
+    <h2>managed goals</h2>
+    <input type="text" />
+  </div>
+</template>
+```
+
+### keep-alive
+
+- solution is to wrap `<keep-alive>` around the dynamic `<component>`
+
+```vue
+//App.vue
+<template>
+  <keep-alive>
+    <component :is="selectedComponent"> </component>
+  </keep-alive>
+</template>
+```
