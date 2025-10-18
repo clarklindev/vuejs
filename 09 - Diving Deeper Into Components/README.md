@@ -57,3 +57,31 @@ export default {
   </section>
 </template>
 ```
+
+## named slots
+
+- says... put this in header slot
+
+```vue
+//UserInfo.vue
+<template v-slot:header></template>
+```
+
+- or the default slot
+
+```vue
+//BadgeList.vue and UserInfo.vue
+<template v-slot:default></template>
+```
+
+- the other content will automatically go in the other slot
+
+```vue
+// BaseCard.vue
+<template>
+  <div>
+    <header><slot name="header"></slot></header>
+    <slot></slot>
+  </div>
+</template>
+```
