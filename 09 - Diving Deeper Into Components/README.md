@@ -22,3 +22,11 @@ export default {
   },
 };
 ```
+
+## Scoped Styles
+
+- using ' scoped' to localize styling
+
+```
+<style scoped></style>
+```
