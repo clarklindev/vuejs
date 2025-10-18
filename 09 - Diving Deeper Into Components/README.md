@@ -74,7 +74,7 @@ export default {
 <template v-slot:default></template>
 ```
 
-- the other content will automatically go in the other slot
+- the other content will automatically go in the other slot... but best practice is to use default slot
 
 ```vue
 // BaseCard.vue
@@ -85,3 +85,7 @@ export default {
   </div>
 </template>
 ```
+
+## Slot Styles & Compilation
+
+- even if you send markup into a slot, the style is for the template before its sent into the component not where you send to.
