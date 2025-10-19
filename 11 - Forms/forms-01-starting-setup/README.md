@@ -40,3 +40,7 @@
     <label for="confirm-terms">agree to terms of use?</label>
 </div>
 ```
+
+## Adding Basic Form Validation
+
+-
