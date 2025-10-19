@@ -13,3 +13,30 @@
 #### refs
 
 - when you use: `this.$refs.ageInput.value` on input, value will always be a string (ie. no automatic type conversion) (browser console outputs strings in black)
+
+## v-model and Dropdowns
+
+```vue
+<template>
+<select id="referrer" name="referrer" v-model="referrer">
+</template>
+```
+
+## Using v-model with Checkboxes & Radiobuttons
+
+- for checkbox and radio put `v-model` on every `input` will create a group.
+- need to add `value` attributes: value=""
+- starting value should is an array
+- reset to empty array
+
+### single checkbox
+
+- initial value is true/false
+- bind with v-model
+
+```vue
+<div class="form-control">
+    <input type="checkbox" id="confirm-terms" name="confirm-terms" v-model='confirm'/>
+    <label for="confirm-terms">agree to terms of use?</label>
+</div>
+```
