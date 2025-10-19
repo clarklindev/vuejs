@@ -56,6 +56,7 @@ export default {
     return {
       resources: this.storedResources,
       addResource: this.addResource,
+      deleteResource: this.removeResource,
     };
   },
   methods: {
@@ -71,6 +72,17 @@ export default {
       };
       this.storedResources.unshift(newResource);
       this.selectedTab = 'stored-resources';
+    },
+    removeResource(resId) {
+      const resIndex = this.storedResources.findIndex(
+        (res) => res.id === resId
+      );
+      this.storedResources.splice(resIndex, 1); //manipulates original array
+
+      //re-assigns new array - bad because other places that reference old array dont update
+      //   this.storedResources = this.storedResources.filter(
+      //     (res) => res.id !== resId
+      //   );
     },
   },
 };
