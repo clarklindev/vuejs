@@ -109,7 +109,8 @@
     </div>
 
     <div class="form-control">
-      <rating-control></rating-control>
+      <!-- using v-model='' is same as :model-value="" @update:modelValue="" -->
+      <rating-control v-model="rating"></rating-control>
     </div>
 
     <div class="form-control">
@@ -136,6 +137,7 @@ export default {
       interest: [],
       how: [],
       confirm: false,
+      rating: null,
       userNameValidity: 'pending',
     };
   },
@@ -159,6 +161,9 @@ export default {
       console.log('confirm?');
       console.log(this.confirm);
       this.confirm = false;
+      console.log('Rating');
+      console.log(this.rating);
+      this.rating = null;
     },
     validateInput() {
       if (this.userName === '') {

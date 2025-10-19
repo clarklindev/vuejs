@@ -43,4 +43,47 @@
 
 ## Adding Basic Form Validation
 
--
+## Using v-model on Custom Components
+
+- note - receives `modelValue` as prop and emits `update:modelValue`
+
+```vue
+<!-- RatingControl.vue -->
+<template>
+  <ul>
+    <li :class="{ active: modelValue === 'poor' }">
+      <button type="button" @click="activate('poor')">poor</button>
+    </li>
+    <li :class="{ active: modelValue === 'average' }">
+      <button type="button" @click="activate('average')">average</button>
+    </li>
+    <li :class="{ active: modelValue === 'great' }">
+      <button type="button" @click="activate('great')">great</button>
+    </li>
+  </ul>
+</template>
+
+<script>
+export default {
+  props: ['modelValue'],
+  emits: ['update:modelValue'],
+
+  methods: {
+    activate(option) {
+      this.$emit('update:modelValue', option);
+    },
+  },
+};
+</script>
+```
+
+- TheForm.vue passes rating as v-model
+
+```vue
+<template>
+  <div class="form-control">
+    <!-- using v-model='' is same as :model-value="" @update:modelValue="" -->
+    <rating-control v-model="rating"></rating-control>
+  </div>
+</template>
+```
