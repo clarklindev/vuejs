@@ -42,3 +42,5 @@ vue create vue-first-app
 - eslint with error prevention only
 
 ## Adding the Vetur Extension to VS Code
+
+- NOTE: there is an official: `Vue (Official)` vscode extension
