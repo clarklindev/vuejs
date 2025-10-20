@@ -33,6 +33,8 @@ fetch("https://vue-http-demo-a8932-default-rtdb.firebaseio.com/surveys.json", {
 });
 ```
 
+## Using Axios Instead Of fetch()
+
 ### axios
 
 ```js
