@@ -375,3 +375,33 @@ export default {
 ```
 
 - using `name:` routes allow you to update the route `path` while your code still references the 'name'
+
+## Using Query Params
+
+- if router-link to="" takes an object form `<router-link :to="teamMembersLink">View Members</router-link>`
+- you can add `query` prop eg: `query: {sort: 'asc'}`
+- which will create url like: `http://localhost:8080/teams/t1?sort=asc`
+- then in `<team-members>` you can access the query parameter via `this.$route.query`
+- note: query parameters are NOT provided as props
+
+```js
+<script>
+export default {
+  props: ['id', 'name', 'memberCount'],
+  computed:{
+    teamMembersLink(){
+      return {
+        name: 'team-members',
+        params:{
+          teamId: this.id
+        },
+        query: {
+          sort: 'asc'
+        }
+      };
+      // this.$router.push({name:'team-members', params:{teamId:this.id}});
+    }
+  }
+};
+</script>
+```

@@ -15,6 +15,9 @@ export default {
         name: 'team-members',
         params:{
           teamId: this.id
+        },
+        query: {
+          sort: 'asc'
         }
       };
       // this.$router.push({name:'team-members', params:{teamId:this.id}});
