@@ -483,4 +483,23 @@ const router = createRouter({
 });
 ```
 
-- navigation bars
+## Introducing Navigation Guards
+
+- functions automatically called by vue-router when an navigation action starts
+- you can also pass next(false); to cancel navigation
+- you can pass string or object to next()
+
+```js
+router.beforeEach(function (to, from, next) {
+  console.log('Global beforeEach');
+  console.log(to, from);
+
+  // next(false);
+  //if check prevents an infinite loop
+  if (to.name === 'team-members') {
+    next();
+  } else {
+    next({ name: 'team-members', params: { teamId: 't2' } });
+  }
+});
+```
