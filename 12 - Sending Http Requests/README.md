@@ -55,3 +55,7 @@ axios.post('https://vue-http-demo-85e9e.firebaseio.com/surveys.json', {
 ```vue
 mounted(){ this.loadExperiences(); }
 ```
+
+## Handling the No Data State
+
+- handling empty responses - if there is no data...
