@@ -184,3 +184,14 @@ export default {
 };
 </script>
 ```
+
+## Updating Params Data with Watchers
+
+- trying to visit the same page path as page you are on now, but with different parameter
+- eg. { path: '/teams/:teamId', component:TeamMembers }
+- the solution is to watch the route for change and pass the route into loadTeamMembers()
+
+```vue
+<!-- TeamMembers.vue -->
+watch:{ $route(newRoute){ this.loadTeamMembers(newRoute); } }
+```
