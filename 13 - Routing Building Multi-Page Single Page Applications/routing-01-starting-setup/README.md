@@ -304,3 +304,24 @@ const router = createRouter({
   routes: [{ path: '/:notFound(.*)', component: NotFound }],
 });
 ```
+
+### Using Nested Routes
+
+- adding a `children` prop on a routes path
+- then in `TeamsList.vue` you need to add another `<router-view></router-view>`
+
+```js
+// main.js
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    {
+      path: '/teams',
+      component: TeamsList,
+      children: [
+        { path: ':teamId', component: TeamMembers, props: true }, // /teams/t1
+      ],
+    },
+  ],
+});
+```
