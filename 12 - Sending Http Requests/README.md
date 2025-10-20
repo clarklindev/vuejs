@@ -59,3 +59,26 @@ mounted(){ this.loadExperiences(); }
 ## Handling the No Data State
 
 - handling empty responses - if there is no data...
+
+## Handling Error Responses
+
+- errors where its not technical but server response is sent but has status code indicating something went wrong. eg. body doesnt have JSON.stringify() which means its sending a js object not json data.
+- this gives a 400 error
+
+```js
+await fetch(
+  "https://vue-http-demo-a8932-default-rtdb.firebaseio.com/surveys.json",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+
+    // ERROR: NO JSON.stringify()
+    body: {
+      name: this.enteredName,
+      rating: this.chosenRating,
+    },
+  }
+);
+```
