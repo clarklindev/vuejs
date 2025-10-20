@@ -462,3 +462,25 @@ const router = createRouter({
   ],
 });
 ```
+
+## Controlling Scroll Behavior
+
+- controlling the scroll behavior
+  - when you are scrolled to bottom of page and click something and page content up top updates, but you have to manually scroll to top... you can make it scroll automatically to the top
+  - add a `scrollBehavior` prop - this method is called wheneever page changes..
+- this makes it so if you use the browser back button, it will go to savedPosition, else if you click on new section, it will scroll to top
+
+```js
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return { left: 0, top: 0 };
+  },
+});
+```
+
+- navigation bars
