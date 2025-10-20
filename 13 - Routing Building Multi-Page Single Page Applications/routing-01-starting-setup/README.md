@@ -503,3 +503,66 @@ router.beforeEach(function (to, from, next) {
   }
 });
 ```
+
+## Diving Deeper Into Navigation Guards
+
+- you can set beforeEach() on individual routes using beforeEnter(){}
+
+```js
+<!-- Main.vue -->
+const router = createRouter({
+  history: createWebHistory(),
+  routes:[
+    { path:'/users', components:{
+        default: UsersList,
+        footer: UsersFooter
+    }, beforeEnter(to, from, next){
+      console.log('users beforeEnter');
+      console.log(to, from);
+      next();
+    }},
+  ]
+});
+```
+
+- if you dont want to add it at route level, you can add it to component
+- the order of execution is first at global level, then route level, then component level
+
+```vue
+<!-- UsersList.vue -->
+<script>
+import UserItem from './UserItem.vue';
+
+export default {
+  components: {
+    UserItem,
+  },
+  inject: ['users'],
+  methods: {
+    confirmInput() {
+      this.$router.push('/teams');
+    },
+  },
+  beforeRouteEnter(to, from, next) {
+    console.log('UsersList Component beforeRouteEnter');
+    console.log(to, from);
+    next();
+  },
+};
+</script>
+```
+
+## beforeRouteUpdate
+
+- if you updating eg. teams then the component will be re-used, Vue can call `beforeRouteUpdate()`
+  - eg. TeamMembers.vue
+
+```js
+// TeamMembers.vue
+export default {
+  //...
+  beforeRouteUpdate(to, from, next) {
+    next();
+  },
+};
+```
