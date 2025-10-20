@@ -645,3 +645,22 @@ ul {
 }
 </style>
 ```
+
+## Utilizing Route Metadata
+
+- you can add `meta:{}` to routes and you can store any values (attribute/value) in there..
+- then you can access this from anywhere the $route is available
+- from globalBeforeEach() route you can check if where you going to, in its meta field, needs authentication eg.
+  and then allow, or deny access
+
+```js
+// main.js
+router.beforeEach(function (to, from, next) {
+  if (to.meta.needsAuth) {
+    //check if user is authenticated
+    next();
+  } else {
+    next();
+  }
+});
+```
