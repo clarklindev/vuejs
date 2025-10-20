@@ -61,7 +61,9 @@ router.beforeEach(function (to, from, next) {
     next(); 
 });
 
-router.afterEach(function (to, from) {});
+router.afterEach(function (to, from) {
+    console.log(to, from)
+});
 
 const app = createApp(App);
 app.use(router);
