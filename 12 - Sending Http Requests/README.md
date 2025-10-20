@@ -49,3 +49,9 @@ axios.post('https://vue-http-demo-85e9e.firebaseio.com/surveys.json', {
 - with Axios, you have to write less code.
 - It automatically sets the Content-Type header for you
 - it also automatically converts the body data to JSON.
+
+## Loading Data When a Component Mounts
+
+```vue
+mounted(){ this.loadExperiences(); }
+```

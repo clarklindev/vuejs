@@ -58,6 +58,10 @@ export default {
         console.error('Error fetching surveys:', error);
       }
     }
+  },
+
+  mounted(){
+    this.loadExperiences();
   }
 };
 </script>
