@@ -125,3 +125,13 @@ a.active {
   background-color: #1a037e;
 }
 ```
+
+## Programmatic Navigation
+
+- this.$router
+
+```
+this.$router.push('/teams');
+this.$router.back();
+this.$router.forward();
+```
