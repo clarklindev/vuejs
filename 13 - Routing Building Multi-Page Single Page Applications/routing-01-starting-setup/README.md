@@ -566,3 +566,11 @@ export default {
   },
 };
 ```
+
+## The Global afterEach Guard
+
+- a global afterEach() call - good for sending analytics data to log navigation actions
+
+```js
+router.afterEach(function (to, from) {});
+```
