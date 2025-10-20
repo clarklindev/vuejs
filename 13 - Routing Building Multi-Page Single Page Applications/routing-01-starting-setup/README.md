@@ -405,3 +405,60 @@ export default {
 };
 </script>
 ```
+
+## Rendering Multiple Routes with Named Router Views
+
+- can have multiple router views on same level if you make them named router views
+- you can then load multiple components per route then send them to different router-views
+  - eg. if you have:
+  - teams/TeamsFooter.vue
+  - users/UsersFooter.vue
+
+```vue
+<!-- App.vue -->
+<template>
+  <the-navigation></the-navigation>
+  <main>
+    <router-view></router-view>
+  </main>
+  <footer>
+    <router-view name="footer"></router-view>
+  </footer>
+</template>
+```
+
+- because App.vue has `<router-view>` and a named `<router-view name="footer">` you can specify in to routes, the `components:` which target the `default` and eg `footer` router-view
+
+```js
+// main.js
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    { path: '/', redirect: '/teams' },
+    {
+      name: 'teams',
+      path: '/teams',
+      components: {
+        default: TeamsList,
+        footer: TeamsFooter,
+      },
+      children: [
+        {
+          name: 'team-members',
+          path: ':teamId',
+          component: TeamMembers,
+          props: true,
+        }, // /teams/t1
+      ],
+    },
+    {
+      path: '/users',
+      components: {
+        default: UsersList,
+        footer: UsersFooter,
+      },
+    },
+    { path: '/:notFound(.*)', component: NotFound },
+  ],
+});
+```
