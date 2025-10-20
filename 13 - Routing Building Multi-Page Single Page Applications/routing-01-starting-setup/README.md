@@ -135,3 +135,52 @@ this.$router.push('/teams');
 this.$router.back();
 this.$router.forward();
 ```
+
+## Passing Data with Route Params (Dynamic Segments)
+
+- :teamId -> { path: '/teams/:teamId', component:TeamMembers}
+
+```js
+<!-- main.js -->
+const router = createRouter({
+    history: createWebHistory(),
+    routes:[
+        {
+            path: '/teams', component:TeamsList
+        },
+        {
+            path:'/users', component:UsersList
+        },
+        { path: '/teams/:teamId', component:TeamMembers}
+    ]
+});
+```
+
+- then in TeamMembers component we can access this :teamId
+
+### this.$route.path
+
+- this.$route.path;
+
+### this.$route.params
+
+- using `this.$route.params` eg. `this.$route.params.teamId;`
+
+```vue
+<script>
+import UserItem from '../users/UserItem.vue';
+
+export default {
+  inject: ['users', 'teams'],
+  components: {
+    UserItem,
+  },
+  data() {
+    return {};
+  },
+  created() {
+    this.$route.params.teamId;
+  },
+};
+</script>
+```
