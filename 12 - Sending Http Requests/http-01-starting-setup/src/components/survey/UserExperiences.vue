@@ -3,7 +3,7 @@
     <base-card>
       <h2>Submitted Experiences</h2>
       <div>
-        <base-button>Load Submitted Experiences</base-button>
+        <base-button @click="loadExperiences">Load Submitted Experiences</base-button>
       </div>
       <ul>
         <survey-result
@@ -21,10 +21,44 @@
 import SurveyResult from './SurveyResult.vue';
 
 export default {
-  props: ['results'],
+  // props: ['results'],
   components: {
     SurveyResult,
   },
+  data(){
+    return {
+      results:[]
+    }
+  },
+  methods:{
+    async loadExperiences(){
+      try{
+
+        const response = await fetch('https://vue-http-demo-a8932-default-rtdb.firebaseio.com/surveys.json');
+        if (!response.ok) {
+          throw new Error('Failed to fetch');
+        }
+
+        const data = await response.json();
+        console.log(data);
+        const results = [];
+
+        for(const id in data){
+          results.push({
+            id:id,
+            name: data[id].name,
+            rating: data[id].rating
+          })
+        }
+
+        this.results = results;
+
+      }
+      catch (error) {
+        console.error('Error fetching surveys:', error);
+      }
+    }
+  }
 };
 </script>
 
