@@ -325,3 +325,53 @@ const router = createRouter({
   ],
 });
 ```
+
+## More Fun with Named Routes & Location Objects
+
+- using named routes
+- when a big app has deeply nested multiple nested routes, construction of links like in TeamsItem.vue
+  `return '/teams/' + this.id;` can get cumbersome,
+- router-link has 2 features:
+  - :to can also take an object
+  - you can name your routes...eg. name: 'team-members',
+
+```js
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    {
+      path: '/teams',
+      component: TeamsList,
+      children: [
+        {
+          name: 'team-members',
+          path: ':teamId',
+          component: TeamMembers,
+          props: true,
+        }, // /teams/t1
+      ],
+    },
+  ],
+});
+```
+
+- then update
+
+```js
+export default {
+  props: ['id', 'name', 'memberCount'],
+  computed: {
+    teamMembersLink() {
+      // return '/teams/' + this.id;
+      return {
+        name: 'team-members',
+        params: {
+          teamId: this.id,
+        },
+      };
+    },
+  },
+};
+```
+
+- using `name:` routes allow you to update the route `path` while your code still references the 'name'
