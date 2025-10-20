@@ -95,3 +95,33 @@ a:active {
 }
 </style>
 ```
+
+## Styling Active Links
+
+- reflecting which tab is active
+- difference between `router-link-active` and `router-link-exact-active`
+  - `router-link-exact-active` - exact match (fully matching) to active path
+  - `router-link-active` - applied to any navigation item which contains a part of the currently active route
+
+```css
+a.router-link-active {
+  color: #f1a80a;
+  border-color: #f1a80a;
+  background-color: #1a037e;
+}
+```
+
+- you can customize 'router-link-active' EG. to 'active'
+
+```vue
+<!-- main.js -->
+const router = createRouter({ linkActiveClass:'active' })
+```
+
+```css
+a.active {
+  color: #f1a80a;
+  border-color: #f1a80a;
+  background-color: #1a037e;
+}
+```
