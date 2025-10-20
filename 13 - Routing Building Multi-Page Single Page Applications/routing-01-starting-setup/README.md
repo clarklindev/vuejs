@@ -264,3 +264,43 @@ const router = createRouter({
 });
 </script>
 ```
+
+## Redirecting & Catch All Routes
+
+- directly visiting http://localhost:8080/ which has no route component
+- fix: use `redirect` in routes:[]
+
+```js
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [{ path: '/', redirect: '/teams' }],
+});
+```
+
+### using alias
+
+- instead of using `redirect`, you can go to the path that should load the root path and add `alias`
+- NOTE: the downside is the url doesnt change...
+
+```js
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    // { path: '/', redirect: '/teams' },
+    { path: '/teams', component: TeamsList, alias: '/' },
+    { path: '/users', component: UsersList },
+    { path: '/teams/:teamId', component: TeamMembers, props: true },
+  ],
+});
+```
+
+### catch-all routes
+
+- matching anything with path: '/:notFound(.\*)'
+
+```js
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [{ path: '/:notFound(.*)', component: NotFound }],
+});
+```
