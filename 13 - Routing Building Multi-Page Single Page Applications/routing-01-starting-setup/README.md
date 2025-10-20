@@ -195,3 +195,72 @@ export default {
 <!-- TeamMembers.vue -->
 watch:{ $route(newRoute){ this.loadTeamMembers(newRoute); } }
 ```
+
+## Passing Params as Props
+
+- up to this point TeamMembers is only loadable through routing...
+- in the code we rely on this.$route -> `created()` and `watch:{$route(newRoute)}`
+
+```vue
+<!-- TeamMembers.vue -->
+created(){ this.loadTeamMembers(this.$route); },
+```
+
+- instead of replying on $route, can receive `teamId` as a prop...
+
+```vue
+<script>
+export default {
+  inject: ['users', 'teams'],
+  components: {
+    UserItem,
+  },
+  props: ['teamId'],
+  data() {
+    return {
+      teamName: '',
+      members: [],
+    };
+  },
+  created() {
+    this.loadTeamMembers(this.teamId);
+  },
+  methods: {
+    loadTeamMembers(teamId) {
+      console.log('teamId: ', teamId);
+      const selectedTeam = this.teams.find((team) => team.id === teamId);
+      const members = selectedTeam.members;
+      const selectedMembers = [];
+      for (const member of members) {
+        const selectedUser = this.users.find((user) => user.id === member);
+        selectedMembers.push(selectedUser);
+      }
+      this.members = selectedMembers;
+      this.teamName = selectedTeam.name;
+    },
+  },
+  watch: {
+    teamId(newId) {
+      this.loadTeamMembers(newId);
+    },
+  },
+};
+</script>
+```
+
+### props:true
+
+- then in main.js set props:true - which tells vue that the dynamic parameter should be passed into the component as a prop
+
+```vue
+<script>
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    { path: '/teams', component: TeamsList },
+    { path: '/users', component: UsersList },
+    { path: '/teams/:teamId', component: TeamMembers, props: true },
+  ],
+});
+</script>
+```
