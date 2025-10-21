@@ -28,3 +28,26 @@
 }
 </style>
 ```
+
+## Why Is Just CSS Not Enough
+
+- vue can help with animating into view and dissapearance by delaying dissapearance
+
+## Playing CSS Animations with Vue's Help
+
+- you can wrap the element that should be animated with `<transition>`
+- `<transition>` should only have 1 direct child
+
+### element mounted
+
+- transition adds utility classes to the element
+  - \*-enter-from
+  - \*-enter-active
+  - \*-enter-to
+
+### element unmounted
+
+- transition adds utility classes to the element
+  - \*-leave-from
+  - \*-leave-active
+  - \*-leave-to
