@@ -137,3 +137,53 @@
 }
 </style>
 ```
+
+## Using Custom CSS Class Names
+
+- if you want different transitions for different components on your page
+- `<transition name="para">` - here you add your custom prefix `para` for transition classes which will then support your custom css class names
+
+```css
+<style>
+
+.para-enter-from{
+  /* opacity:0;
+  transform: translateY(-30px); */
+}
+
+.para-enter-active{
+  /* transition: all 0.3s ease-out; */
+  animation: slide-scale 0.3s ease-out;
+}
+
+.para-enter-to{
+  /* opacity:1;
+  transform:translateY(0); */
+}
+
+.para-leave-from{
+  /* opacity:1;
+  transform:translateY(0); */
+}
+
+.para-leave-active{
+  /* transition: all 0.3s ease-in; */
+  animation: slide-scale 0.3s ease-out;
+}
+
+.para-leave-to{
+  /* opacity:0;
+  transform: translateY(30px); */
+}
+</style>
+```
+
+### incase you want to replace the entire class name
+
+- so instead, you can use completely custom class names
+
+```vue
+<transition enter-to-class="" enter-active-class="" enter-from-class="">
+    <p></p>
+</transition>
+```
