@@ -41,13 +41,49 @@
 ### element mounted
 
 - transition adds utility classes to the element
-  - \*-enter-from
-  - \*-enter-active
-  - \*-enter-to
+  - .v-enter-from{}
+  - .v-enter-active{}
+  - .v-enter-to{}
 
 ### element unmounted
 
 - transition adds utility classes to the element
-  - \*-leave-from
-  - \*-leave-active
-  - \*-leave-to
+  - v-leave-from{}
+  - v-leave-active{}
+  - v-leave-to{}
+
+## Using the Transition Component
+
+- then you can define styles for these utility classes in css code
+
+```css
+/* entering */
+.v-enter-from {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.v-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.v-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* leaving */
+.v-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.v-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+.v-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+```
