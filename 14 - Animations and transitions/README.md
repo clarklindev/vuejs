@@ -420,3 +420,23 @@ export default {
 };
 </script>
 ```
+
+## Disabling CSS Transitions
+
+- when there is no css animation, you can disable css check `:css="false"` which tells vue this transition doesnt use css and will skip `searching for css duration` checks
+
+```vue
+<transition
+  :css="false"
+  @before-enter="beforeEnter"
+  @enter="enter"
+  @after-enter="afterEnter"
+  @before-leave="beforeLeave"
+  @leave="leave"
+  @after-leave="afterLeave"
+  @enter-cancelled="enterCancelled"
+  @leave-cancelled="leaveCancelled"
+>
+  <p v-if="paragraphIsVisible">This is only sometimes visible...</p>
+</transition>
+```
