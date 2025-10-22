@@ -9,7 +9,7 @@
     </transition>
     <button @click="toggleParagraph">Toggle Paragraph</button>
   </div>
-  <base-modal @close="hideDialog" v-if="dialogIsVisible">
+  <base-modal @close="hideDialog" :open="dialogIsVisible">
     <p>This is a test dialog!</p>
     <button @click="hideDialog">Close it!</button>
   </base-modal>
@@ -150,6 +150,7 @@ button:active {
   /* opacity:0;
   transform: translateY(30px); */
 }
+
 
 @keyframes slide-scale{  
   0% {

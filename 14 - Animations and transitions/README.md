@@ -187,3 +187,59 @@
     <p></p>
 </transition>
 ```
+
+## Example Animating a Modal
+
+- we are setting up `transition name="modal"` but animation is not happening because in `<base-modal>` - the template has 2 elements at the same level and `<transition>` wants one direct child element
+- the `<base-modal>` has 2 direct child, the `backdrop` and `dialog`
+- if you remove the backdrop, you will see the animation works.
+
+```html
+<!-- App.vue -->
+<transition name="modal">
+  <base-modal @close="hideDialog" v-if="dialogIsVisible">
+    <p>This is a test dialog!</p>
+    <button @click="hideDialog">Close it!</button>
+  </base-modal>
+</transition>
+```
+
+### to fix: remove transition and put it inside base-modal
+
+```html
+<!-- App.vue -->
+<base-modal @close="hideDialog" v-if="dialogIsVisible">
+  <p>This is a test dialog!</p>
+  <button @click="hideDialog">Close it!</button>
+</base-modal>
+```
+
+- but if `<transition>` is part of the template that is added/removed with v-if="dialogIsVisible" it wont have any effect.
+- so instead of v-if use :open="dialogIsVisible"
+- note: you can reverse an animation `.modal-leave-active { animation: modal 0.3s ease-in reverse; }`
+
+```html
+<!-- App.vue -->
+<base-modal @close="hideDialog" :open="dialogIsVisible">
+  <p>This is a test dialog!</p>
+  <button @click="hideDialog">Close it!</button>
+</base-modal>
+```
+
+```vue
+<!-- BaseModal -->
+<template>
+  <div v-if="open" class="backdrop" @click="$emit('close')"></div>
+  <transition name="modal">
+    <dialog open v-if="open">
+      <slot></slot>
+    </dialog>
+  </transition>
+</template>
+
+<style>
+.modal-leave-active {
+  animation: modal 0.3s ease-in reverse;
+}
+</style>
+```
