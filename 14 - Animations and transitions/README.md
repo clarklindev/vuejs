@@ -243,3 +243,42 @@
 }
 </style>
 ```
+
+## Transitioning Between Multiple Elements
+
+- there is one exception when you are allowed to have more than one child inside `<transition>` - is when you guarantee that only one child is added to the DOM at the same time
+- NOTE: instead of using 2x v-if you need to use v-if/v-else
+
+### mode="out-in"
+
+- AND transition can also take mode="in-out" or mode="out-in" to decide which element is animated first
+
+```vue
+<!-- App.vue -->
+<div class="container">
+  <transition name="fade-button" mode="out-in">
+    <button @click="showUsers" v-if="!usersAreVisible">show users</button>
+    <button @click="hideUsers" v-else>hide users</button>
+  </transition>
+</div>
+
+<style>
+.fade-button-enter-from,
+.fade-button-leave-to {
+  opacity: 0;
+}
+
+.fade-button-enter-active {
+  transition: opacity 0.3s ease-out;
+}
+
+.fade-button-leave-active {
+  transition: opacity 0.3s ease-in;
+}
+
+.fade-button-enter-to,
+.fade-button-leave-from {
+  opacity: 1;
+}
+</style>
+```
