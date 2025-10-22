@@ -484,3 +484,29 @@ export default {
 }
 </style>
 ```
+
+## Animate List Item Movement
+
+- fixing the snapping that happens when item is removed from list with `-move{}`
+- for fixing snapping on leave, `-leave-active` needs `position:absolute`
+
+```vue
+<template>
+  <transition-group tag="ul" name="user-list">
+    <li v-for="user in users" :key="user" @click="removeUser(user)">
+      {{ user }}
+    </li>
+  </transition-group>
+</template>
+
+<style>
+.user-list-move {
+  transition: transform 0.8s ease;
+}
+
+.user-list-leave-active {
+  transition: all 1s ease-in;
+  position: absolute;
+}
+</style>
+```
