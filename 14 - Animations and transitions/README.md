@@ -282,3 +282,64 @@
 }
 </style>
 ```
+
+## Using Transition Events
+
+- can trigger methods during animation cycle (these functions receive a prop - the element on which the function runs)
+
+  - @before-enter="beforeEnter"
+  - @enter
+  - @after-enter - can listen for after enter animation finishes
+  - @before-leave="beforeLeave"
+  - @leave="leave"
+  - @after-leave="afterLeave"
+
+```vue
+<template>
+  <div class="container">
+    <transition
+      name="para"
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+    >
+      <p v-if="paragraphIsVisible">This is only sometimes visible...</p>
+    </transition>
+    <button @click="toggleParagraph">Toggle Paragraph</button>
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    beforeEnter(el) {
+      console.log("beforeEnter");
+      console.log(el);
+    },
+    enter(el) {
+      console.log("enter");
+      console.log(el);
+    },
+    afterEnter(el) {
+      console.log("afterEnter");
+      console.log(el);
+    },
+    beforeLeave(el) {
+      console.log("beforeLeave");
+      console.log(el);
+    },
+    leave(el) {
+      console.log("leave");
+      console.log(el);
+    },
+    afterLeave(el) {
+      console.log("afterLeave");
+      console.log(el);
+    },
+  },
+};
+</script>
+```
