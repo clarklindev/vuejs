@@ -343,3 +343,80 @@ export default {
 };
 </script>
 ```
+
+## Building JavaScript Transitions (instead of CSS)
+
+- building animation with javascript requires the hooks
+
+  - @before-enter="beforeEnter"
+  - @enter="enter"
+  - @after-enter="afterEnter"
+  - @before-leave="beforeLeave"
+  - @leave="leave"
+  - @after-leave="afterLeave"
+
+- these methods receive a second parameter, `done` which you call to signal to vue the hook is done
+- there is also the `@enter-cancelled=""` and `@leave-cancelled=""`
+- if enter or leave animation gets cancelled -> cancel enter interval immediately
+- update by adding `enterInterval` and `leaveInterval` as data()
+- NOTE: for `this` to be scoped correctly use arrow function for setInterval
+
+```vue
+<script>
+export default {
+  data(){
+    return {
+      enterInterval: null,
+      leaveInterval: null
+    }
+  }
+  methods: {
+    beforeEnter(el) {
+      console.log("beforeEnter");
+      console.log(el);
+      el.style.opacity = 0;
+    },
+    enter(el, done) {
+      console.log("enter");
+      console.log(el);
+      let round = 1;
+      this.enterInterval = setInterval(()=> {
+        el.style.opacity = round * 0.01;
+        round++;
+        if (round > 100) {
+          clearInterval(this.enterInterval);
+          done();
+        }
+      }, 20);
+    },
+    beforeLeave(el) {
+      console.log("beforeLeave");
+      console.log(el);
+      el.style.opacity = 1;
+    },
+    leave(el, done) {
+      console.log("leave");
+      console.log(el);
+      let round = 1;
+      this.leaveInterval = setInterval(()=> {
+        el.style.opacity = 1 - round * 0.01;
+        round++;
+        if (round > 100) {
+          clearInterval(this.leaveInterval);
+          done();
+        }
+      }, 20);
+    },
+
+    enterCancelled(el) {
+      console.log(el);
+      clearInterval(this.enterInterval);
+    },
+    leaveCancelled(el) {
+      console.log(el);
+      clearInterval(this.leaveInterval);
+    },
+  },
+};
+</script>
+```
