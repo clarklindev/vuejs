@@ -510,3 +510,88 @@ export default {
 }
 </style>
 ```
+
+## Animating Route Changes
+
+- see src/pages/AllUsers.vue
+- see src/pages/CourseGoals.vue
+
+- install vue-router
+
+```
+npm i --save vue-router@next
+```
+
+```js
+// router.js
+import { createRouter, createWebHistory } from "vue-router";
+import AllUsers from "./pages/AllUsers.vue";
+import CourseGoals from "./pages/CourseGoals.vue";
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    { path: "/", component: AllUsers },
+    { path: "/goals", component: CourseGoals },
+  ],
+});
+
+export default router;
+```
+
+```vue
+<!-- App.vue -->
+<template>
+  <router-view v-slot="slotProps">
+    <transition name="fade-button" mode="out-in">
+      <component :is="slotProps.Component"></component>
+    </transition>
+  </router-view>
+</template>
+
+<style>
+.route-enter-from {
+}
+.route-enter-active {
+  animation: slide-scale 0.4s ease-out;
+}
+.route-enter-to {
+}
+.route-leave-from {
+}
+.route-leave-active {
+  animation: slide-scale 0.4s ease-in;
+}
+.route-leave-to {
+}
+</style>
+```
+
+```vue
+<!-- AllUsers.vue -->
+<template>
+  <div class="container">
+    <h2>All Users</h2>
+    <router-link to="/goals">Course goals</router-link>
+  </div>
+</template>
+```
+
+```vue
+<!-- CourseGoals.vue -->
+<template>
+  <div class="container">
+    <h2>Course Goals</h2>
+    <router-link to="/">All users</router-link>
+  </div>
+</template>
+```
+
+- initial route is still from no route to `/` so that animates to fix:
+
+```js
+// main.js
+router.isReady().then(function () {
+  app.mount("#app");
+});
+```
