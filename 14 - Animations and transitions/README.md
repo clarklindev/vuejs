@@ -440,3 +440,5 @@ export default {
   <p v-if="paragraphIsVisible">This is only sometimes visible...</p>
 </transition>
 ```
+
+## Getting Started with Animated Lists
