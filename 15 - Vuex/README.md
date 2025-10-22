@@ -128,3 +128,53 @@ export default {
 };
 </script>
 ```
+
+## Passing Data to Mutations with Payloads
+
+- see mutations:{} -> increase(state, payload)
+
+```js
+<!-- main.js -->
+const store = createStore({
+    state(){
+        return {
+            counter: 0
+        }
+    },
+    mutations:{
+        increment(state){
+            state.counter = state.counter + 2;
+        },
+        increase(state, payload){
+            state.counter = state.counter + payload.value;
+        }
+    }
+});
+```
+
+- then when you call it, you pass the payload as the 2nd parameter
+
+```vue
+<!-- App.vue -->
+<script>
+export default {
+  components: {
+    BaseContainer,
+    TheCounter,
+    ChangeCounter,
+  },
+
+  methods: {
+    addOne() {
+      this.$store.commit("increase", { value: 10 });
+
+      //alternate syntax
+      // this.$store.commit({
+      //   type: 'increase',
+      //   value: 10
+      // });
+    },
+  },
+};
+</script>
+```
