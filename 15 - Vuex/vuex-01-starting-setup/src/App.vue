@@ -23,13 +23,19 @@ export default {
   
   methods:{
     addOne(){
-      this.$store.commit('increase', {value: 10});
+      // this.$store.commit('increase', {value: 10});
 
       //alternate syntax
       // this.$store.commit({
       //   type: 'increase',
       //   value: 10
       // });
+
+      //using the action
+      this.$store.dispatch({
+        type: 'increase',
+        value: 10
+      })
     }
   }
 };

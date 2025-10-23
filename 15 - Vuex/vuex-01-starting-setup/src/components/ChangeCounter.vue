@@ -12,7 +12,12 @@ export default{
     methods:{
         addOne(){
             // this.$store.state.counter++;
-            this.$store.commit('increment')
+
+            //call mutation        
+            // this.$store.commit('increment')
+
+            //call action
+            this.$store.dispatch('increment');
         }
     }
 }

@@ -74,6 +74,7 @@ const store = createStore({
 });
 ```
 
+- so you can call mutations with `.commit()`
 - then you trigger the mutation from multiple places eg. `ChangeCounter.vue` and `App.vue`
 - you use `this.$store.commit('increment')` and inside is a name of the mutations 'increment'
 
@@ -235,6 +236,99 @@ export default {
       // return this.$store.state.counter
       // return this.$store.getters.finalCounter;
       return this.$store.getters.normalizedCounter;
+    },
+  },
+};
+</script>
+```
+
+## Running Async Code with Actions
+
+- when you have async code that needs time before it completes
+- problem is mutations must be synchronous (without pause)
+- solution: components should trigger actions that then in turn trigger mutations
+
+### actions
+
+- here, the `actions` object has an `increment` function that gets `context`
+- `context` has a `commit()` method -> it commits a mutation
+- you can pass a second argument as a payload or an object
+- NOTE: actions are allowed to run asynchronous code
+- NOTE: you should update the code to run the action (allows async code) instead of mutation
+
+```js
+// main.js
+const store = createStore({
+  state() {
+    return {
+      counter: 0,
+    };
+  },
+  mutations: {
+    increment(state) {
+      state.counter = state.counter + 2;
+    },
+    increase(state, payload) {
+      state.counter = state.counter + payload.value;
+    },
+  },
+  getters: {
+    finalCounter(state) {
+      return state.counter * 2;
+    },
+    normalizedCounter(_, getters) {
+      const finalCounter = getters.finalCounter;
+      if (finalCounter < 0) {
+        return 0;
+      }
+      if (finalCounter > 100) {
+        return 100;
+      }
+      return finalCounter;
+    },
+  },
+  actions: {
+    increment(context) {
+      setTimeout(function () {
+        context.commit("increment");
+      }, 2000);
+    },
+    increase(context, payload) {
+      context.commit("increase", payload);
+    },
+  },
+});
+```
+
+- then in App.vue where you should now use the action...
+- use `this.$store.dispatch()`
+
+```vue
+<!-- App.vue -->
+<script>
+export default {
+  components: {
+    BaseContainer,
+    TheCounter,
+    ChangeCounter,
+    FavoriteValue,
+  },
+
+  methods: {
+    addOne() {
+      // this.$store.commit('increase', {value: 10});
+
+      //alternate syntax
+      // this.$store.commit({
+      //   type: 'increase',
+      //   value: 10
+      // });
+
+      //using the action
+      this.$store.dispatch({
+        type: "increase",
+        value: 10,
+      });
     },
   },
 };
