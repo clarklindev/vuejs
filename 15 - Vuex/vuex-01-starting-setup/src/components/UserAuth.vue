@@ -1,6 +1,7 @@
 <template>
     <button v-if="!loginStatus" @click="login">login</button>
     <button v-if="loginStatus" @click="logout">logout</button>
+    <p>{{ testAuth }}</p>
 </template>
 
 <script>
@@ -17,7 +18,7 @@ export default{
     //     // return this.$store.state.counter
     //     return this.$store.getters.finalCounter
     // }
-    ...mapGetters(["loginStatus"]),
+    ...mapGetters(["loginStatus", 'testAuth']),
   },
 }
 

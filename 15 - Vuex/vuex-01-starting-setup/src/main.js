@@ -28,6 +28,10 @@ const counterModule = {
         },
     },
     getters:{
+        // testAuth(state, getters, rootState, rootGetters){
+        testAuth(_1, _2, rootState){
+            return rootState.isLoggedIn
+        },
         finalCounter(state){
             return state.counter * 2;
         },

@@ -499,3 +499,20 @@ const store = createStore({
   },
 });
 ```
+
+## Understanding Local Module State
+
+- state inside a module eg. CounterModule is local to the module
+- mutations, actions, getters are global
+- sometimes you do need access to another modules state, the workaround is that inside of a module, eg. in getters:{} you get access to getters, `rootState`, and `rootGetters`
+
+```js
+const counterModule = {
+  getters: {
+    // testAuth(state, getters, rootState, rootGetters){
+    testAuth(_1, _2, rootState) {
+      return rootState.isLoggedIn;
+    },
+  },
+};
+```
