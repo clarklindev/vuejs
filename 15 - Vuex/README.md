@@ -516,3 +516,145 @@ const counterModule = {
   },
 };
 ```
+
+## Namespacing Modules
+
+- clearly separating modules from each other with namespaces
+- this prevents nameclashes, eg. if you have same action names etc in CounterModule vs main store.
+- you can namespace modules
+- then you access the module state via the key eg. `numbers` in createStore()
+
+- then where you used to access counter...
+- instead of `this.$store.getters.normalizedCounter;`
+- access via this.$store.getters[''] -> eg. `this.$store.getters['numbers/normalizedCounter']`
+- where 'numbers/' is the name assigned in createStore():
+
+```js
+// main.js
+const counterModule = {
+  namespaced: true,
+  state() {
+    return {
+      counter: 0,
+    };
+  },
+};
+
+const store = createStore({
+  modules: {
+    numbers: counterModule,
+  },
+});
+```
+
+```vue
+<!-- FavoriteValue.vue -->
+<template>
+  <h3>{{ counter }}</h3>
+  <p>we do more...</p>
+</template>
+
+<script>
+export default {
+  computed: {
+    counter() {
+      // return this.$store.state.counter
+
+      //better to use getter
+      //   return this.$store.getters.normalizedCounter;
+      return this.$store.getters["numbers/normalizedCounter"];
+    },
+  },
+};
+</script>
+```
+
+- if you are using `mapGetters`, the first argument is the `namespace`, 2nd argument is still array of getters
+
+```js
+<!-- TheCounter.vue -->
+
+export default{
+    computed:{
+        // counter(){
+        //     // return this.$store.state.counter
+        //     return this.$store.getters.finalCounter
+        // }
+        ...mapGetters('numbers', ['finalCounter'])
+    },
+}
+</script>
+```
+
+- same as for `mapActions`
+
+```js
+// ChangeCounter.vue
+export default{
+
+    data(){
+        return{
+
+        }
+    },
+    methods:{
+        // addOne(){
+        //     // this.$store.state.counter++;
+
+        //     //call mutation
+        //     // this.$store.commit('increment')
+
+        //     //call action
+        //     this.$store.dispatch('increment');
+        // }
+
+        // ...mapActions(['increment', 'increase'])
+
+        //using custom action name mapping
+        ...mapActions('numbers', {
+            inc:'increment',
+            increase: 'increase'
+        })
+    }
+}
+</script>
+```
+
+- note: App.vue dispatch becomes: `type: "numbers/increase"`
+
+```js
+export default {
+  components: {
+    BaseContainer,
+    TheCounter,
+    ChangeCounter,
+    FavoriteValue,
+    UserAuth,
+  },
+
+  methods: {
+    addOne() {
+      // this.$store.commit('increase', {value: 10});
+
+      //alternate syntax
+      // this.$store.commit({
+      //   type: 'increase',
+      //   value: 10
+      // });
+
+      //using the action
+      this.$store.dispatch({
+        type: "numbers/increase",
+        value: 10,
+      });
+    },
+  },
+  computed: {
+    // counter(){
+    //     // return this.$store.state.counter
+    //     return this.$store.getters.finalCounter
+    // }
+    ...mapGetters(["loginStatus"]),
+  },
+};
+```

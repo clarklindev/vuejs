@@ -13,7 +13,7 @@ export default{
         //     // return this.$store.state.counter
         //     return this.$store.getters.finalCounter
         // }
-        ...mapGetters(['finalCounter'])
+        ...mapGetters('numbers', ['finalCounter'])
     },
 }
 </script>

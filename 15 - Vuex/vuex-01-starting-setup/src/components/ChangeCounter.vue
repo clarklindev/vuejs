@@ -27,7 +27,7 @@ export default{
         // ...mapActions(['increment', 'increase'])
 
         //using custom action name mapping
-        ...mapActions({
+        ...mapActions('numbers', {
             inc:'increment',
             increase: 'increase'
         })

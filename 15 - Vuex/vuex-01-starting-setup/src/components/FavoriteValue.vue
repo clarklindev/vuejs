@@ -10,7 +10,7 @@ export default{
             // return this.$store.state.counter
             
             //better to use getter
-            return this.$store.getters.normalizedCounter
+            return this.$store.getters['numbers/normalizedCounter'];
         }
     },
 }
