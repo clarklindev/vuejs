@@ -443,3 +443,59 @@ export default {
 ```
 
 ## Example Adding More State
+
+## Organizing your Store with Modules
+
+- store can be made up of multiple modules
+- create an object with the same structure as the store
+- modules are merged into the store at the same level as things in the store
+
+```js
+// main.js
+const counterModule = {
+  state() {
+    return {
+      counter: 0,
+    };
+  },
+  mutations: {
+    increment(state) {
+      state.counter = state.counter + 2;
+    },
+    increase(state, payload) {
+      state.counter = state.counter + payload.value;
+    },
+  },
+  actions: {
+    increment(context) {
+      setTimeout(function () {
+        context.commit("increment");
+      }, 2000);
+    },
+    increase(context, payload) {
+      context.commit("increase", payload);
+    },
+  },
+  getters: {
+    finalCounter(state) {
+      return state.counter * 2;
+    },
+    normalizedCounter(_, getters) {
+      const finalCounter = getters.finalCounter;
+      if (finalCounter < 0) {
+        return 0;
+      }
+      if (finalCounter > 100) {
+        return 100;
+      }
+      return finalCounter;
+    },
+  },
+};
+
+const store = createStore({
+  modules: {
+    counter: counterModule,
+  },
+});
+```
