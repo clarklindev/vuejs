@@ -334,3 +334,8 @@ export default {
 };
 </script>
 ```
+
+## Understanding the Action Context
+
+- you can call `dispatch` from `context`
+- you should not manipulate the state from inside the action, use a mutation
