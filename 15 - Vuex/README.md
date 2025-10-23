@@ -658,3 +658,11 @@ export default {
   },
 };
 ```
+
+## Structuring Vuex Code & Files
+
+- outsource store related from main.js to store.js
+- create store/ folder
+  - store/index.js stores mainstore logic
+  - store/actions.js
+  - store/mutations.js
