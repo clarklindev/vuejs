@@ -10,7 +10,7 @@
         </li>
         <li>
           <router-link to="/cart">Cart</router-link>
-          <base-badge mode="elegant">{{ cart.qty }}</base-badge>
+          <base-badge mode="elegant">{{ cartQuantity }}</base-badge>
         </li>
         <li v-if="isLoggedIn">
           <router-link to="/admin">Admin</router-link>
@@ -25,9 +25,29 @@
 </template>
 
 <script>
+import BaseBadge from '../ui/BaseBadge.vue';
+
 export default {
-  inject: ['isLoggedIn', 'login', 'logout', 'cart'],
-};
+  components: {
+    BaseBadge
+  },
+  computed:{
+    cartQuantity(){
+      return this.$store.getters['cart/qty']
+    },
+    isLoggedIn(){
+      return this.$store.getters['auth/isLoggedIn']
+    }
+  },
+  methods:{
+    login(){
+      this.$store.dispatch('auth/login');
+    },
+    logout(){
+      this.$store.dispatch('auth/logout');
+    }
+  }
+}
 </script>
 
 <style scoped>

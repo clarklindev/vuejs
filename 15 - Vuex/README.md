@@ -573,6 +573,7 @@ export default {
 
 ```js
 <!-- TheCounter.vue -->
+import { mapGetters } from 'vuex';
 
 export default{
     computed:{
@@ -666,3 +667,49 @@ export default {
   - store/index.js stores mainstore logic
   - store/actions.js
   - store/mutations.js
+
+## A Challenge
+
+## A Challenge Solution
+
+- ProductItem.vue -> only pass the product id as payload to actions
+
+```vue
+<script>
+export default {
+  props: ["id", "image", "title", "price", "description"],
+  methods: {
+    addToCart() {
+      this.$store.dispatch("cart/addToCart", {
+        id: this.id,
+        // image: this.image,
+        // title: this.title,
+        // price: this.price,
+      });
+    },
+  },
+};
+</script>
+```
+
+- then in store/modules/cart/actions use the received payload (id)
+- by using context.rootGetters to access a getter from different namespace `product/products` and then find by id and use the found product as the payload
+
+```js
+//store/modules/cart/actions.js
+export default {
+  // here we use context.rootGetters to access other getters
+  addToCart(context, payload) {
+    const prodId = payload.id;
+    const products = context.rootGetters["product/products"];
+    const product = products.find((prod) => prod.id === prodId);
+    context.commit("addProductToCart", product);
+  },
+  removeFromCart(context, payload) {
+    context.commit("removeProductFromCart", payload);
+  },
+};
+```
+
+- and also use the actions to trigger the mutations...
+- eg. call `this.$store.dispatch('auth/login');` instead of `this.$store.commit('auth/login');`
