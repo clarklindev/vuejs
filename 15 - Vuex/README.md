@@ -178,3 +178,65 @@ export default {
 };
 </script>
 ```
+
+## Introducing Getters - A Better Way Of Getting Data
+
+- just as you use mutations to set data, you should use getters:{} to get data
+- getters are functions that receive state and other getters
+
+```js
+// main.js
+const store = createStore({
+  state() {
+    return {
+      counter: 0,
+    };
+  },
+  mutations: {
+    increment(state) {
+      state.counter = state.counter + 2;
+    },
+    increase(state, payload) {
+      state.counter = state.counter + payload.value;
+    },
+  },
+  getters: {
+    finalCounter(state, getters) {
+      return state.counter * 2;
+    },
+
+    //receives state, getters
+    normalizedCounter(_, getters) {
+      const finalCounter = getters.finalCounter;
+      if (finalCounter < 0) {
+        return 0;
+      }
+      if (finalCounter > 100) {
+        return 100;
+      }
+      return finalCounter;
+    },
+  },
+});
+```
+
+- then in the component, use the getter
+
+```vue
+<template>
+  <h3>{{ counter }}</h3>
+  <p>we do more...</p>
+</template>
+
+<script>
+export default {
+  computed: {
+    counter() {
+      // return this.$store.state.counter
+      // return this.$store.getters.finalCounter;
+      return this.$store.getters.normalizedCounter;
+    },
+  },
+};
+</script>
+```
