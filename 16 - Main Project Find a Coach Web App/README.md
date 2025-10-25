@@ -15,3 +15,7 @@ width=600
 ```
 pnpm i vuex vue-router
 ```
+
+## Registering as a Coach - The Form
+
+- NOTE: for the form to be 'reusable' we dont hook it up to state but rather just emit the form data and let the parent component handle the data passed to it.
