@@ -65,3 +65,16 @@ export default {
 };
 </script>
 ```
+
+## Storing Requests (Messages) With Vuex
+
+- NOTE: in ContactCoach.vue, we are calling the action (and using the url's id to get coachId) this is because ContactCoach is a child route of CoachDetail and we set `props:true` which allows us to receive the dynamic route as a prop
+- OR we can access the dynamic prop from the url via `this.$route.params.id`
+
+```js
+this.$store.dispatch("requests/contactCoach", {
+  coachId: this.$route.params.id,
+  email: this.email,
+  message: this.message,
+});
+```
