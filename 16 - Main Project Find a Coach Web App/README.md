@@ -78,3 +78,7 @@ this.$store.dispatch("requests/contactCoach", {
   message: this.message,
 });
 ```
+
+## Outputting Incoming Requests (Messages)
+
+- showing all requests for the active coach
