@@ -82,3 +82,23 @@ this.$store.dispatch("requests/contactCoach", {
 ## Outputting Incoming Requests (Messages)
 
 - showing all requests for the active coach
+
+## Filtering Requests for the Active Coach
+
+- showing only the current coach (we get this id from root userId)
+- we receive: `state, getters, rootState, rootGetters` in our getters
+- from rootGetters we have access to `userId` getter
+- then in hasRequests, we update to only check the filtered requests
+
+```js
+// store/requests/getters
+export default {
+  requests(state, getters, rootState, rootGetters) {
+    const coachId = rootGetters.userId;
+    return state.requests.filter((request) => request.coachId === coachId);
+  },
+  hasRequests(state, getters) {
+    return getters.requests && getters.requests.length > 0;
+  },
+};
+```
