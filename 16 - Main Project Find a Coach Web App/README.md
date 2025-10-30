@@ -288,3 +288,103 @@ export default {
 ```
 
 - so in `RequestsReceived.vue` you can call the action fetchRequests
+
+## Caching Http Response Data
+
+- cache data locally and only refetch after eg. a minute or after clicking refresh button
+- store/modules/coaches/index add a `lastFetch` key in `state()`
+
+```js
+// store/modules/coaches/index.js
+export default {
+  namespaced: true,
+  state() {
+    return { lastFetch: null, coaches: [] };
+  },
+};
+```
+
+- add the mutation to set lastFetch
+
+```js
+//store/modules/coaches/mutations.js
+export default {
+  //...
+
+  setFetchTimestamp(state) {
+    state.lastFetch = new Date().getTime();
+  },
+};
+```
+
+- call this from store/modules/coaches/actions.js
+
+```js
+export default {
+  async loadCoaches(context, payload) {
+    if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+      return;
+    }
+
+    const response = await fetch(
+      `https://vue-16-find-a-coach-default-rtdb.firebaseio.com/coaches.json`
+    );
+  },
+
+  //...
+  context.commit('setFetchTimestamp')
+};
+```
+
+- then add shouldUpdate() in store/modules/coaches/getters.js
+
+```js
+export default {
+  shouldUpdate(state) {
+    const lastFetch = state.lastFetch;
+    if (!lastFetch) {
+      return true;
+    }
+    const currentTimeStamp = new Date().getTime();
+    return (currentTimeStamp - lastFetch) / 1000 > 60;
+  },
+};
+```
+
+- see loadCoaches() above..
+- we add a `forceRefresh` prop
+- you can pass in forceRefresh from CoachesList
+
+```vue
+<!-- pages/coaches/CoachesList.vue -->
+<template>
+  {/* ... */}
+  <section>
+    <base-card>
+      <div class="controls">
+        <base-button mode="outline" @click="loadCoaches(true)"
+          >refresh</base-button
+        >
+      </div>
+    </base-card>
+  </section>
+</template>
+
+<script>
+export default {
+  methods: {
+    async loadCoaches(refresh = false) {
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch("coaches/loadCoaches", {
+          forceRefresh: refresh,
+        });
+      } catch (err) {
+        this.error = err.message || "Something went wrong";
+      }
+      this.isLoading = false;
+    },
+  },
+};
+</script>
+```
