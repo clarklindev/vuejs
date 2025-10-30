@@ -130,3 +130,16 @@ created() {
   this.loadCoaches();
 },
 ```
+
+## Rendering a Loading Spinner
+
+- note: in actions, loadCoaches returns a promise from the async function,
+- so when we call `loadCoaches()` method in CoachesList
+- we add a data property: `isLoading: false`
+
+```js
+//pages/coaches/CoachesList.vue
+loadCoaches() {
+  this.$store.dispatch('coaches/loadCoaches');
+},
+```
