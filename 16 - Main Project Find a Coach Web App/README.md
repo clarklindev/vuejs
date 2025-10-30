@@ -143,3 +143,67 @@ loadCoaches() {
   this.$store.dispatch('coaches/loadCoaches');
 },
 ```
+
+## Adding Http Error Handling
+
+- throw an error that can be handled by the component that dispatches the action
+- change `https://vue-16-find-a-coach-default-rtdb.firebaseio.com/coaches.json` to `https://vue-16-find-a-coach-default-rtdb.firebaseio.com/coaches.jso`
+
+```js
+//store/modules/coaches/actions.js
+async loadCoaches(context) {
+  const response = await fetch(
+    `https://vue-16-find-a-coach-default-rtdb.firebaseio.com/coaches.json`
+  );
+
+  const responseData = await response.json();
+  if (!response.ok) {
+    //error handling
+    const error = new Error(responseData.message || 'Failed to fetch!');
+    throw error;
+  }
+}
+```
+
+- CoachesList.vue can then catch the error and use it in the template
+- create a data prop 'error'
+- then use `BaseDialog.vue`
+
+```vue
+// CoachesList.vue
+<template>
+  <base-dialog :show="!!error" title="An error occured" @close="handleError">
+    <p>{{ error }}</p>
+  </base-dialog>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      //...
+      isLoading: false,
+      error: null,
+    };
+  },
+  methods: {
+    async loadCoaches() {
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch("coaches/loadCoaches");
+        this.isLoading = false;
+      } catch (err) {
+        this.isLoading = false;
+        this.error = this.error.message || "Something went wrong";
+      }
+    },
+    handleError() {
+      this.error = null;
+    },
+  },
+  created() {
+    this.loadCoaches();
+  },
+};
+</script>
+```
