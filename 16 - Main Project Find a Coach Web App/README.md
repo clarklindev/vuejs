@@ -388,3 +388,101 @@ export default {
 };
 </script>
 ```
+
+## Adding Route Transitions
+
+- transitioning router
+- animating modal
+- change modules/coaches/actions.js by breaking the url to show modal
+
+- `components/ui/BaseDialog.vue`
+- wrap dialog with `<transition name="dialog">`
+- use eg. dialog-enter-from, dialog-leave-to css classes
+
+```vue
+<template>
+  <teleport to="body">
+    <div v-if="show" @click="tryClose" class="backdrop"></div>
+    <transition name="dialog">
+      <dialog open v-if="show">
+        <header>
+          <slot name="header">
+            <h2>{{ title }}</h2>
+          </slot>
+        </header>
+        <section>
+          <slot></slot>
+        </section>
+        <menu v-if="!fixed">
+          <slot name="actions">
+            <base-button @click="tryClose">Close</base-button>
+          </slot>
+        </menu>
+      </dialog>
+    </transition>
+  </teleport>
+</template>
+
+<style scoped>
+.dialog-enter-from,
+.dialog-leave-to {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.dialog-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.dialog-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+.dialog-enter-to,
+.dialog-leave-from {
+  opacity: 1;
+  transform: scale(1);
+}
+</style>
+```
+
+### route transitions
+
+- App.vue
+
+```vue
+<!-- App.vue -->
+<template>
+  <TheHeader></TheHeader>
+  <router-view v-slot="slotProps">
+    <transition name="route" mode="out-in">
+      <component :is="slotProps.Component"></component>
+    </transition>
+  </router-view>
+</template>
+
+<style scoped>
+.route-enter-from {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.route-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.route-enter-active {
+  transition: all 0.3s ease-out;
+}
+.route-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+.route-enter-to,
+.route-leave-from {
+  opacity: 1;
+  transform: translateY(0px);
+}
+</style>
+```
