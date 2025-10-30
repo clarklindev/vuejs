@@ -113,10 +113,20 @@ export default {
 ### coaches
 
 - `CoachRegistration.vue` - send request when register as a coach
-- fetching all coaches
+- `CoachesList.vue` - fetching all coaches
 - refresh (also re-fetches)
 
 ### request
 
 - fetch all requests
 - contact coach form (send a request)
+
+## Fetching Coach Data (GET Http Request)
+
+- `CoachesList.vue` dispatch an action `loadCoaches` on `created()` lifecycle hook
+
+```js
+created() {
+  this.loadCoaches();
+},
+```
