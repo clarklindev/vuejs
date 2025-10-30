@@ -7,9 +7,9 @@
   </section>
   <section>
     <base-card>
-      <header>
+      <header v-if="!isContactPage">
         <h2>Interested? reach out now</h2>
-        <base-button :to="contactLink">Contact</base-button>
+        <base-button link :to="contactLink">Contact</base-button>
       </header>
       <router-view></router-view>
     </base-card>
@@ -29,12 +29,12 @@
 
 <script>
 export default {
+  props: ['id'],
   data() {
     return {
       selectedCoach: null,
     };
   },
-  props: ['id'],
   created() {
     this.selectedCoach = this.$store.getters['coaches/coaches'].find(
       (coach) => coach.id === this.id
@@ -44,8 +44,12 @@ export default {
     fullName() {
       return this.selectedCoach.firstName + ' ' + this.selectedCoach.lastName;
     },
+    isContactPage() {
+      // true if the route ends with '/contact'
+      return this.$route.path.endsWith('/contact');
+    },
     contactLink() {
-      return this.$route.path + '/' + this.id + '/contact';
+      return this.$route.path + '/contact';
     },
     areas() {
       return this.selectedCoach.areas;
