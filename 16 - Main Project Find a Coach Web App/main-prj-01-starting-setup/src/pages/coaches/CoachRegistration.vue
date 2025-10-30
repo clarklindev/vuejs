@@ -19,9 +19,14 @@ export default {
   },
 
   methods: {
-    saveData(data) {
-      this.$store.dispatch('coaches/registerCoach', data);
-      this.$router.replace('/coaches');
+    async saveData(data) {
+      try {
+        await this.$store.dispatch('coaches/registerCoach', data);
+        this.$router.replace('/coaches');
+      } catch (err) {
+        console.error(err);
+        alert(err.message || 'Failed to register coach.');
+      }
     },
   },
 };

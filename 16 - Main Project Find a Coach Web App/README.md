@@ -102,3 +102,21 @@ export default {
   },
 };
 ```
+
+## Sending a PUT Http Request to Store Coach Data
+
+- using Firebase for backend
+  - project: `vue-16-find-a-coach`
+  - create Realtime database (test-mode)
+  - https://console.firebase.google.com/project/vue-16-find-a-coach/database/vue-16-find-a-coach-default-rtdb/data
+
+### coaches
+
+- `CoachRegistration.vue` - send request when register as a coach
+- fetching all coaches
+- refresh (also re-fetches)
+
+### request
+
+- fetch all requests
+- contact coach form (send a request)
