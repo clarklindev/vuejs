@@ -13,8 +13,11 @@ export default {
       areas: data.areas,
     };
 
+    const token = context.rootGetters.token;
+
     const response = await fetch(
-      `https://vue-16-find-a-coach-default-rtdb.firebaseio.com/coaches/${userId}.json`,
+      `https://vue-16-find-a-coach-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=` +
+        token,
       {
         method: 'PUT', //write data if it didnt exist or override
         body: JSON.stringify(coachData),

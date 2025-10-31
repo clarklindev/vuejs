@@ -685,3 +685,47 @@ Property Name Type Description
 `expiresIn` - string - The number of seconds in which the ID token expires.
 `localId` - string - The uid of the authenticated user.
 `registered` - boolean - Whether the email is for an existing account.
+
+## Attaching the Token to Outgoing Requests
+
+- modules/auth/mutations.js -> vuex -> we are storing the token
+- we should attach this token to outgoing requests that target endpoints' resources on firebase that are protected
+- give access to the token in auth/getters
+- use the token:
+
+### coaches/actions.js
+
+- you can add a token to url request by adding: `?auth=` + token
+
+```js
+async registerCoach(context, data) {
+  //...
+  const token = context.getters.token;
+
+  const response = await fetch(
+    `https://vue-16-find-a-coach-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=`+token,
+    {
+      method: "PUT", //write data if it didnt exist or override
+      body: JSON.stringify(coachData),
+    }
+  );
+}
+```
+
+### requests/actions.js
+
+- fetchRequests()
+
+```js
+async fetchRequests(context) {
+  const coachId = context.rootGetters.userId;
+
+  const token = context.rootGetters.token;
+
+  const response = await fetch(
+    `https://vue-16-find-a-coach-default-rtdb.firebaseio.com/requests/${coachId}.json?auth=` +
+      token
+  );
+  //...
+}
+```
