@@ -542,3 +542,7 @@ export default {
   }
 }
 ```
+
+## Adding an Authentication Page (Login & Signup)
+
+- added pages/auth/UserAuth.vue
