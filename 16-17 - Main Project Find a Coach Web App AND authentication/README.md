@@ -506,3 +506,39 @@ export default {
   NOTE: (only server can validate the token)
 - step3 -> token is attached to out going requests and server can validate token and then grant/deny access to restricted resource
 - on user interface you want to restrict displaying certain buttons like (fetching requests button, create a coach) to only when user is logged in
+
+## Locking Protecting Backend Resources
+
+- update firebase (which was created in test-mode) to not grant access to all resource by updating `realtime database rules`
+- COACHES
+  -> read -> all can access
+  -> create -> not everyone can create a coach
+
+- REQUESTS
+  -> sending requests to coaches -> all can access
+  -> read -> restricted
+
+### Firebase Realtime Database Rules
+
+- update the firebase realtime database rules
+- note: `auth` is a restricted firebase variable
+
+- with the updated rules, localhost:8080/requests yields error: `Failed to load resource: the server responded with a status of 401 (Unauthorized)`
+- same with trying to register a new coach
+- sending messages should work
+- with the updates to firebase rules, you need a token to access these restricted resources which is made available with login/signup
+
+```json
+{
+  "rules": {
+    "coaches": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "requests": {
+      ".read": "auth != null",
+      ".write": true
+    }
+  }
+}
+```
