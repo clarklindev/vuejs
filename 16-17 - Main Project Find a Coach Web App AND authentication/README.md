@@ -488,3 +488,21 @@ export default {
 ```
 
 ## The Not Found Page & Summary
+
+---
+
+# 17. Authententication
+
+- using real users
+- login, signup, logout
+- keep users logged in if they leave the page and return
+
+## How Authentication Works in Vue Apps (or any SPA)
+
+- restricted data -> fetching requests / creating a coach
+- backend does not track whether user is logged in -> need a way to keep track of user logged in status
+- step1 -> user login data sent to backend
+- step2 -> backend sends back token to user -> stored in vuex or localstorage
+  NOTE: (only server can validate the token)
+- step3 -> token is attached to out going requests and server can validate token and then grant/deny access to restricted resource
+- on user interface you want to restrict displaying certain buttons like (fetching requests button, create a coach) to only when user is logged in
