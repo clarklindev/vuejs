@@ -736,4 +736,58 @@ async fetchRequests(context) {
 
 ## Adding a Logout Action & Flow
 
-- layout/TheHeader.vue
+- layout/TheHeader
+
+## Authentication & Routing (incl. Navigation Guards)
+
+- redirected after logging in or logout
+- in CoachesList.vue append to link `?redirect=register`
+
+```js
+<base-button link to="/auth?redirect=register" v-if="!isLoggedIn">
+  Login to register as a Coach
+</base-button>
+```
+
+- then in UserAuth.vue if we dont want to go to default /coaches when logged in, we can check for this `?redirect`
+
+```js
+const redirectUrl = "/" + (this.$route.query.redirect || "coaches");
+this.$router.replace(redirectUrl);
+```
+
+### navigation guards
+
+- we add route metadata to routes that should be protected eg. `meta: { requiresAuth: true },`
+
+```js
+// router.js
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    //...
+    {
+      path: "/register",
+      component: CoachRegistration,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/requests",
+      component: RequestsReceived,
+      meta: { requiresAuth: true },
+    },
+    { path: "/auth", component: UserAuth, meta: { requiresUnauth: true } },
+    { path: "/:notFound(.*)", component: NotFound },
+  ],
+});
+
+router.beforeEach(function (to, _, next) {
+  if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
+    next("/auth");
+  } else if (to.meta.requiresUnauth && store.getters.isAuthenticated) {
+    next("/coaches");
+  } else {
+    next();
+  }
+});
+```
