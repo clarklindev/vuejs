@@ -546,3 +546,25 @@ export default {
 ## Adding an Authentication Page (Login & Signup)
 
 - added pages/auth/UserAuth.vue
+
+## Preparing Vuex
+
+### firebase sign-in methods
+
+- with firebase, build/authentication - you can set up authentication `sign-in methods` (providers)
+  - enable `email/password`
+  - or google
+  - or facebook
+  - or github
+  - or twitter
+
+### firebase auth rest API
+
+- google search `firebase auth rest API`
+- these are endpoints to create a user and get a token or log an user in
+  - sign up with email/password
+  - sign in with email/password
+
+## managing authentication with vuex
+
+- NOTE: we are not going to namespace the module (ie we will merge in the state) this is because we previously managed the logged in user on the global vuex state
