@@ -657,3 +657,7 @@ export default {
   getters,
 };
 ```
+
+## Better UX Loading Spinner & Error Handling
+
+- handle thrown errors in `pages/auth/UserAuth.vue`
