@@ -661,3 +661,27 @@ export default {
 ## Better UX Loading Spinner & Error Handling
 
 - handle thrown errors in `pages/auth/UserAuth.vue`
+
+## Adding a Login Action & Flow
+
+- sign in with email/password - https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password
+- endpoint: https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
+- NOTE: the only difference is the endpoint url for the action
+- call when trying to login in UserAuth.vue
+
+### Request Body Payload
+
+Property Name Type Description
+`email` - string - The email the user is signing in with.
+`password` - string - The password for the account.
+`returnSecureToken` - boolean - Whether or not to return an ID and refresh token. Should always be true.
+
+### Response Payload
+
+Property Name Type Description
+`idToken` - string - A Firebase Auth ID token for the authenticated user.
+`email` - string - The email for the authenticated user.
+`refreshToken` - string - A Firebase Auth refresh token for the authenticated user.
+`expiresIn` - string - The number of seconds in which the ID token expires.
+`localId` - string - The uid of the authenticated user.
+`registered` - boolean - Whether the email is for an existing account.
