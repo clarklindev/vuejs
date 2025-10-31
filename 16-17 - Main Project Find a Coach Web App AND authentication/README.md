@@ -733,3 +733,7 @@ async fetchRequests(context) {
 ## Updating the UI Based on Auth State
 
 - dont show `requests` or `register a coach` if not logged in. show `login` button instead
+
+## Adding a Logout Action & Flow
+
+- layout/TheHeader.vue
