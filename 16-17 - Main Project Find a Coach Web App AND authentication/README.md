@@ -561,6 +561,7 @@ export default {
 ### firebase auth rest API
 
 - google search `firebase auth rest API`
+- https://firebase.google.com/docs/reference/rest/auth
 - these are endpoints to create a user and get a token or log an user in
   - sign up with email/password
   - sign in with email/password
@@ -568,3 +569,91 @@ export default {
 ## managing authentication with vuex
 
 - NOTE: we are not going to namespace the module (ie we will merge in the state) this is because we previously managed the logged in user on the global vuex state
+
+### Sign up with email / password
+
+- note: from pages/auth/UserAuth.vue -> can dispatch the action from `submit()`
+- http://localhost:8080/auth
+- successful signup of user will add to firebase -> authentication -> `users` table
+
+#### request payload
+
+- DOCS - https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
+- from Firebase project -> project settings -> get the `web api key`
+- `POST`: https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
+  - note the request body payload: 'email', 'password', 'returnSecureToken'
+
+#### response payload
+
+`idToken` - string - A Firebase Auth ID token for the newly created user.
+`email` - string - The email for the newly created user.
+`refreshToken` - string - A Firebase Auth refresh token for the newly created user.
+`expiresIn` - string - The number of seconds in which the ID token expires.
+`localId` - string - The uid of the newly created user.
+
+```js
+//store/modules/auth/actions.js
+export default {
+  login(context, payload) {},
+  async signup(context, payload) {
+    const response = await fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCJYfuySSxhacWZiBECg6x6hsAUOqKlc4Q",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email: payload.email,
+          password: payload.password,
+          returnSecureToken: true,
+        }),
+      }
+    );
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      console.log(responseData);
+      const error = new Error(responseData.message || "Failed to authenticate");
+      throw error;
+    }
+
+    console.log(responseData);
+    context.commit("setUser", {
+      token: responseData.idToken,
+      userId: responseData.localId,
+      tokenExpiration: responseData.expiresIn,
+    });
+  },
+};
+```
+
+```js
+// store/modules/auth/mutations.js
+export default {
+  setUser(state, payload) {
+    state.token = payload.token;
+    state.userId = payload.userId;
+    state.tokenExpiration = payload.tokenExpiration;
+  },
+};
+```
+
+```js
+//store/modules/auth/index.js
+import mutations from "./mutations.js";
+import actions from "./actions.js";
+import getters from "./getters.js";
+
+export default {
+  // namespaced: true,
+  state() {
+    return {
+      userId: null,
+      token: null,
+      tokenExpiration: null,
+    };
+  },
+  mutations,
+  actions,
+  getters,
+};
+```
