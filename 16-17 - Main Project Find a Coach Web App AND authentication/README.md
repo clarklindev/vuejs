@@ -791,3 +791,28 @@ router.beforeEach(function (to, _, next) {
   }
 });
 ```
+
+## Adding Auto Login
+
+- ensure users stay logged in, because currently auth state is stored only in vuex and if the page refreshes, the login status is lost
+- todo: storing auth data that survives browser reloads
+
+### localstorage for auth
+
+```js
+// store/modules/auth/actions.js
+localStorage.setItem("token", responseData.idToken);
+localStorage.setItem("userId", responseData.localId);
+```
+
+- then when app starts, check in localstorage for 'token' and 'userId'
+- dispatch `tryLogin()` modules/auth/actions.js when app starts (App.vue)
+
+```js
+// App.vue
+export default {
+  created() {
+    this.$store.dispatch("tryLogin");
+  },
+};
+```
