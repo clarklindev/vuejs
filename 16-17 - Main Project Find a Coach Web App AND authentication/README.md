@@ -816,3 +816,68 @@ export default {
   },
 };
 ```
+
+## Adding Auto Logout
+
+- the token does expire -> when its expired should auto logout
+- when user logs out, the localstorage token should be cleared
+- NOTE: after login, the data you get back from firebase includes `expiresIn` (number of seconds after which token expires) - 3600 seconds (1hr)
+- we want to store expiration date (when token becomes invalid)
+- we then set a timer when user logs in and auto logs user out when timer expires
+- we also need to set timer when we auto login checking how much expiration time is left and set a new timer to that time
+- when user logs out, this timer is also cleared `clearTimeout(timer);`
+- should redirect page if we auto log user out
+
+```js
+//store/modules/auth/actions.js
+let timer;
+
+export default {
+  async auth(context, payload) {
+    //...
+    const expiresIn = +responseData.expiresIn * 1000; //seconds to milliseconds conversion
+    const expirationDate = new Date().getTime() + expiresIn; //expiration timestamp in milliseconds (furture)
+
+    localStorage.setItem("token", responseData.idToken);
+    localStorage.setItem("userId", responseData.localId);
+    localStorage.setItem("tokenExpiration", expirationDate);
+
+    timer = setTimeout(function () {
+      context.dispatch("logout");
+    }, expiresIn);
+  },
+  logout(context) {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("tokenExpiration");
+
+    clearTimeout(timer);
+
+    context.commit("setUser", {
+      token: null,
+      userId: null,
+    });
+  },
+  tryLogin(context) {
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+    const tokenExpiration = localStorage.getItem("tokenExpiration");
+
+    const expiresIn = +tokenExpiration - new Date().getTime();
+    if (expiresIn < 0) {
+      return;
+    }
+
+    timer = setTimeout(function () {
+      context.dispatch("logout");
+    }, expiresIn);
+
+    if (token && userId) {
+      context.commit("setUser", {
+        token: token,
+        userId: userId,
+      });
+    }
+  },
+};
+```
