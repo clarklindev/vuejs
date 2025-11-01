@@ -1,6 +1,6 @@
 # 19 - The Composition API - Replacing the Options API
 
-- we have a `setup()` function instead of data()
+- we have a `setup()` function instead of `data()`, `methods`, `computed`, `watch`
 
 ## Replacing data with refs
 
