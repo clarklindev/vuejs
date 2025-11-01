@@ -92,3 +92,26 @@ export default {
 };
 </script>
 ```
+
+## Reactivity A Deep Dive / toRefs()
+
+- the object is reactive but the values are not thats why with setup(), you always return the reactive object (not just the reactive object's properties which would be like taking a snapshot)
+- you can check if an object/value is reactive with `import { isReactive, isRef } from "vue";`
+- you can make values inside an reactive object also reactive with `toRefs`
+- you give toRefs() an object and it turns all property values into refs
+
+```js
+import { isReactive, isRef, toRefs } from "vue";
+
+const uAge = ref(31);
+const user = reactive({
+  name: "Max",
+  age: 31,
+});
+console.log(isRef(uAge)); //true
+console.log(isReactive(user)); //true
+
+const userRefs = toRefs(user);
+
+return { user: user, userName: userRefs.name, age: userRefs.age };
+```
