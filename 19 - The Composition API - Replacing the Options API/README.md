@@ -28,3 +28,67 @@ export default{
 }
 </script>
 ```
+
+## Building reactive Objects
+
+### ref objects
+
+- so you can group refs as an ref object
+- then you return the whole user object
+- the template accesses the props
+
+```vue
+<template>
+  <section class="container">
+    <h2>{{ user.name }} {{ user.age }}</h2>
+  </section>
+</template>
+
+<script>
+import { ref } from "vue";
+
+export default {
+  setup() {
+    const user = ref({
+      name: "Maximilian",
+      age: 32,
+    });
+    return { user: user };
+  },
+};
+</script>
+```
+
+### using reactive
+
+- the difference is ref works with anything, but `reactive()` ONLY works with objects
+- `reactive` doesnt wrap it with an object that you have to access values via `.value.` which is what happens with `ref`
+- with `reactive`, you access the object props via a proxy but it makes it so that you can access the props directly (like a regular js object)
+
+```vue
+<template>
+  <section class="container">
+    <h2>{{ user.name }} {{ user.age }}</h2>
+  </section>
+</template>
+
+<script>
+import { reactive } from "vue";
+
+export default {
+  setup() {
+    const user = reactive({
+      name: "Maximilian",
+      age: 32,
+    });
+
+    setTimeout(function () {
+      user.name = "Max";
+      user.age = 50;
+    }, 2000);
+
+    return { user: user };
+  },
+};
+</script>
+```
