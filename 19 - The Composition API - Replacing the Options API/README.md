@@ -134,3 +134,27 @@ export default {
 };
 </script>
 ```
+
+## Replacing Computed Properties with the computed Function
+
+- `import { computed } from 'vue';`
+- a computed property is just a ref (but ONLY readonly)
+
+```vue
+<template>
+  <p>{{ userName }}</p>
+</template>
+<script>
+import { computed } from "vue";
+
+export default {
+  setup() {
+    const uName = computed(function () {
+      return firstName.value + " " + lastName.value;
+    });
+
+    return { userName: uName };
+  },
+};
+</script>
+```
