@@ -200,3 +200,39 @@ export default {
 };
 </script>
 ```
+
+## Working with Watchers
+
+- watch() takes 2 arguments
+- the first arg is the dependencies of watch() (when watch() should be called)
+- the second arg is the actual function to be called -> gets 2 arguments (newValue, oldValue)
+
+```js
+import { watch } from "vue";
+
+const uAge = ref(31);
+
+watch(uAge, function (newValue, oldValue) {
+  console.log("old age: ", oldValue);
+  console.log("new age:", newValue);
+});
+
+const uName = computed(function () {
+  return firstName.value + " " + lastName.value;
+});
+```
+
+### watching multiple values
+
+- note: with multiple dependencies, the function receives `newValues, oldValues` and the value
+  in newValues/oldValues depends on the order of the dependencies eg. `[uAge, uName]`
+
+```js
+watch([uAge, uName], function (newValues, oldValues) {
+  console.log("old age: ", oldValues[0]);
+  console.log("new age:", newValues[0]);
+
+  console.log("old name:", oldValues[1]);
+  console.log("new name: ", newValues[1]);
+});
+```
