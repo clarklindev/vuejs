@@ -158,3 +158,45 @@ export default {
 };
 </script>
 ```
+
+## Two-Way-Binding and the Composition API
+
+- you can still use v-model="" and bind to a ref
+
+```vue
+<template>
+  <section class="container">
+    <h2>{{ user.name }} {{ user.age }}</h2>
+    <h2>{{ userName }}</h2>
+    <button @click="setAge">Change age</button>
+    <div>
+      <!-- <input type="text" placeholder="first name" @input="setFirstName" />
+      <input type="text" placeholder="last name" @input="setLastName" /> -->
+      <input type="text" placeholder="first name" v-model="firstName" />
+      <input type="text" placeholder="last name" v-model="lastName" />
+    </div>
+  </section>
+</template>
+
+<script>
+import { ref, reactive, computed } from "vue";
+
+export default {
+  setup() {
+    const firstName = ref("");
+    const lastName = ref("");
+
+    return {
+      user: user,
+      user2: user2,
+      userName: uName,
+      setAge: setNewAge,
+      // setFirstName,
+      // setLastName,
+      firstName,
+      lastName,
+    };
+  },
+};
+</script>
+```
