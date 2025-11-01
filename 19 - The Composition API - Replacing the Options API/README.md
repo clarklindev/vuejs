@@ -115,3 +115,22 @@ const userRefs = toRefs(user);
 
 return { user: user, userName: userRefs.name, age: userRefs.age };
 ```
+
+## Replacing methods with Regular Functions
+
+- instead of 'methods', you define other functions inside setup()
+- you return functions in setup() to expose them
+
+```vue
+<script>
+export default {
+  setup() {
+    //...
+    function setNewAge() {
+      user.age = 32;
+    }
+    return { setAge: setNewAge };
+  },
+};
+</script>
+```

@@ -36,7 +36,11 @@ export default {
       user2.age = 50;
     }, 2000);
 
-    return { user: user, user2: user2 };
+    function setNewAge() {
+      user.age = 32;
+    }
+
+    return { user: user, user2: user2, setAge: setNewAge };
   },
 };
 </script>
