@@ -499,3 +499,7 @@ export default {
 ## Migrating a Big Component
 
 - src/components/users/UserList.vue
+
+## Migrating the Remaining Components
+
+- src/components/projects/ProjectsList.vue
