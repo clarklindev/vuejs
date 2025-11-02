@@ -236,3 +236,29 @@ watch([uAge, uName], function (newValues, oldValues) {
   console.log("new name: ", newValues[1]);
 });
 ```
+
+## How To Use Template Refs
+
+- template refs
+- with composition api, there is no reference to `this` in functions
+- you create the ref in setup()
+- with ref created, `lastNameInput.value` refers to the input and we call .value to get inputs value
+
+```vue
+<template>
+  <input type="text" placeholder="last name" ref="lastNameInput" />
+  <button @click="setLastName">set last name</button>
+</template>
+
+<script setup>
+const lastNameInput = ref(null);
+const lastName = ref("");
+
+function setLastName() {
+  // lastName.value = this.$refs.lastNameInput.value; //options api
+  lastName.value = lastNameInput.value.value; //composition api, using the ref directly
+}
+
+return { lastNameInput, setLastName };
+</script>
+```

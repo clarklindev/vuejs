@@ -8,7 +8,9 @@
       <input type="text" placeholder="last name" @input="setLastName" /> -->
 
       <input type="text" placeholder="first name" v-model="firstName" />
-      <input type="text" placeholder="last name" v-model="lastName" />
+      <!-- <input type="text" placeholder="last name" v-model="lastName" /> -->
+      <input type="text" placeholder="last name" ref="lastNameInput" />
+      <button @click="setLastName">set last name</button>
     </div>
   </section>
 </template>
@@ -27,6 +29,8 @@ export default {
     const uAge = ref(31);
     const firstName = ref('');
     const lastName = ref('');
+
+    const lastNameInput = ref(null);
 
     const uName = computed(function () {
       return firstName.value + ' ' + lastName.value;
@@ -71,6 +75,10 @@ export default {
       uAge.value = 50;
     }
 
+    function setLastName() {
+      lastName.value = lastNameInput.value.value; //options api
+    }
+
     // function setFirstName(event) {
     //   firstName.value = event.target.value;
     // }
@@ -88,6 +96,8 @@ export default {
       // setLastName,
       firstName,
       lastName,
+      lastNameInput,
+      setLastName,
     };
   },
 };
