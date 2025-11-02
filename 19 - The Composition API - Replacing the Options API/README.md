@@ -262,3 +262,92 @@ function setLastName() {
 return { lastNameInput, setLastName };
 </script>
 ```
+
+## Components, Props & The Composition API
+
+- you can mix options and composition API
+
+### options API (the way we know up to now)
+
+```vue
+<!-- src/components/UserData.vue -->
+<template>
+  <h2>{{ userName }}</h2>
+  <h3>{{ age }}</h3>
+</template>
+
+<script>
+export default {
+  props: ["firstName", "lastName", "age"],
+  computed: {
+    userName() {
+      return this.firstName + "" + this.lastName;
+    },
+  },
+};
+</script>
+```
+
+### UserData.vue but with Composition API
+
+- setup() receives `props` as a prop
+- setup() also receives `context`
+- NOTE: we also dont need to return 'age' from setup(), its received as a prop and used directly in template
+
+```vue
+<!-- src/components/UserData.vue -->
+
+<template>
+  <h2>{{ userName }}</h2>
+  <h3>{{ age }}</h3>
+</template>
+
+<script>
+import { computed } from "vue";
+
+export default {
+  props: ["firstName", "lastName", "age"],
+  setup(props) {
+    const uName = computed(function () {
+      return props.firstName + " " + props.lastName;
+    });
+    return { userName: uName };
+  },
+};
+</script>
+```
+
+### App uses composition API
+
+```vue
+<!-- App.vue -->
+<template>
+  <user-data
+    :first-name="firstName"
+    :last-name="lastName"
+    :age="age"
+  ></user-data>
+</template>
+<script>
+import UserData from "./components/UserData.vue";
+
+export default {
+  components: { UserData },
+  setup() {
+    return {
+      user: user,
+      user2: user2,
+      userName: uName,
+      age: uAge,
+      setAge: setNewAge,
+      // setFirstName,
+      // setLastName,
+      firstName,
+      lastName,
+      lastNameInput,
+      setLastName,
+    };
+  },
+};
+</script>
+```
