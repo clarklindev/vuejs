@@ -530,3 +530,44 @@ export default {
 };
 </script>
 ```
+
+## The Route & Router Objects and the Composition API
+
+- this.$route
+- this.$route.query
+- this.$route.path
+
+### useRoute to get dynamic route params
+
+- is replaced with hooks eg. `useRoute` eg. can instead of using props to get `pid` now: `route.params.pid`
+
+```js
+import { useRoute } from "vue-router";
+
+export default {
+  setup(props) {
+    const route = useRoute();
+
+    //route.params.pid
+  },
+};
+```
+
+### useRouter for programatic naviagtion
+
+- instead of `this.$router.push('/products')` use the `userRouter` hook
+
+```js
+import { useRouter } from "vue-router";
+
+export default {
+  setup() {
+    const router = useRouter();
+
+    function submitForm() {
+      //...
+      router.push("/products");
+    }
+  },
+};
+```
