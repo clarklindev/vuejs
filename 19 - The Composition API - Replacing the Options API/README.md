@@ -491,3 +491,5 @@ export default {
 };
 </script>
 ```
+
+## Migrating from Options API to Composition API - An Example Project
