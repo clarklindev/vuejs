@@ -571,3 +571,25 @@ export default {
   },
 };
 ```
+
+## Using Vuex with the Composition API
+
+- get access to the store we create in main.js, instead of `this.$store`...
+
+```vue
+<script>
+import { useStore } from "vuex";
+
+export default {
+  setup() {
+    const store = useStore();
+
+    function inc() {
+      store.dispatch("increment");
+    }
+
+    return { inc };
+  },
+};
+</script>
+```
