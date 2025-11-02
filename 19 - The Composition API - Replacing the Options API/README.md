@@ -505,3 +505,28 @@ export default {
 - src/components/projects/ProjectsList.vue
 
 ## Routing, Params & The Composition API
+
+- without Composition api, we had `this.$router` and `this.$route`
+- with Composition api, to get route parameters data:
+  - pass in to route as prop `props:true` /use provide/inject
+
+```vue
+<!-- src/pages/ProductDetails.vue -->
+<script>
+export default {
+  props: ["pid"],
+  setup(props) {
+    const products = inject("products");
+
+    const selectedProduct = computed(() =>
+      products.value.find((product) => product.id === props.pid)
+    );
+    const title = computed(() => selectedProduct.value.title);
+    const price = computed(() => selectedProduct.value.price);
+    const description = computed(() => selectedProduct.value.description);
+
+    return { title, price, description };
+  },
+};
+</script>
+```
