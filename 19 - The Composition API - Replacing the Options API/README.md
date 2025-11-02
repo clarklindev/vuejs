@@ -444,3 +444,50 @@ export default {
 };
 </script>
 ```
+
+## Lifecycle Hooks in the Composition API
+
+- optionsAPI: `beforeCreate`, `created`, `beforeMount`, `mounted`, `beforeUpdate`, `updated`, `beforeUnmount`, `unmounted`
+
+- compositionAPI: has functions you can import from vue which you can call inside setup()
+  - NOTE: with setup() it doesnt need `beforeCreate` and `created` because it runs at same time as them
+  - `onBeforeMount`, `onMounted`
+  - `onBeforeUpdate`, `onUpdated`
+  - `onBeforeUnmount`, `onUnmounted`
+
+```vue
+<!-- src/components/UserData.vue -->
+<script>
+import {
+  onBeforeMount,
+  onMounted,
+  onBeforeUpdate,
+  onUpdated,
+  onBeforeUnmount,
+  onUnmounted,
+} from "vue";
+
+export default {
+  setup(props, context) {
+    onBeforeMount(function () {
+      console.log("onBeforeMount");
+    });
+    onMounted(function () {
+      console.log("onMounted");
+    });
+    onBeforeUpdate(function () {
+      console.log("onBeforeUpdate");
+    });
+    onUpdated(function () {
+      console.log("onUpdated");
+    });
+    onBeforeUnmount(function () {
+      console.log("onBeforeUnmount");
+    });
+    onUnmounted(function () {
+      console.log("onUnmounted");
+    });
+  },
+};
+</script>
+```
