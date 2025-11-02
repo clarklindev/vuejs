@@ -493,3 +493,9 @@ export default {
 ```
 
 ## Migrating from Options API to Composition API - An Example Project
+
+- App.vue
+
+## Migrating a Big Component
+
+- src/components/users/UserList.vue
