@@ -20,11 +20,13 @@ export default {
 
 <!-- COMPOSITION API -->
 <script>
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 
 export default {
-  props: ['firstName', 'lastName', 'age'],
+  props: ['firstName', 'lastName'],
   setup(props, context) {
+    const age = inject('userAge');
+
     const uName = computed(function () {
       return props.firstName + ' ' + props.lastName;
     });
@@ -32,7 +34,7 @@ export default {
     // this.$emit('save-data', 1);
     context.emit('save-data', 1);
 
-    return { userName: uName };
+    return { userName: uName, age };
   },
 };
 </script>

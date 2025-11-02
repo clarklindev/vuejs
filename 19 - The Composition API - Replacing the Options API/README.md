@@ -381,3 +381,66 @@ export default {
 };
 </script>
 ```
+
+## Working with Provide Inject
+
+- when you want to work with provide/inject,
+- instead of forwarding age as prop to `<user-data>`
+
+### options API using provide
+
+```vue
+<!-- App.vue -->
+<template>
+  <user-data
+    :first-name="firstName"
+    :last-name="lastName"
+    class="test"
+  ></user-data>
+</template>
+
+<script>
+export default {
+  provide() {
+    age: this.age;
+  },
+};
+</script>
+```
+
+### Composition API
+
+- `import {provide} from 'vue';`
+
+```vue
+<!-- App.vue -->
+<script>
+import { provide } from "vue";
+
+export default {
+  setup() {
+    provide("userAge", uAge);
+  },
+};
+</script>
+```
+
+```vue
+<!-- src/components/UserData.vue -->
+<template>
+  {{ age }}
+</template>
+
+<script>
+import { inject } from "vue";
+
+export default {
+  // inject: [],
+  setup(props, context) {
+    const age = inject("userAge");
+
+    return { age };
+  },
+};
+</script>
+```
