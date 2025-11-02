@@ -6,6 +6,7 @@
       :first-name="firstName"
       :last-name="lastName"
       :age="age"
+      class="test"
     ></user-data>
     <button @click="setAge">Change age</button>
     <div>

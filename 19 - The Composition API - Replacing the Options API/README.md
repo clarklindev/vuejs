@@ -351,3 +351,33 @@ export default {
 };
 </script>
 ```
+
+## Emitting Custom Events
+
+- with composition api, setup receives `context` too: `setup(props, context)`
+- context:
+  - attrs - any fallthrough attributes eg. defining a `class` on `<user-data class="test">` and its not a defined as `props`
+    - NOTE: fallthrough behavior doesnt work if your template has multiple root nodes
+  - emit - can emit a custom event
+  - slots - slots gives you access to slot data
+
+```vue
+<!-- COMPOSITION API -->
+<script>
+import { computed } from "vue";
+
+export default {
+  props: ["firstName", "lastName", "age"],
+  setup(props, context) {
+    const uName = computed(function () {
+      return props.firstName + " " + props.lastName;
+    });
+
+    // this.$emit('save-data', 1);
+    context.emit("save-data", 1);
+
+    return { userName: uName };
+  },
+};
+</script>
+```
