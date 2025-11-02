@@ -503,3 +503,5 @@ export default {
 ## Migrating the Remaining Components
 
 - src/components/projects/ProjectsList.vue
+
+## Routing, Params & The Composition API
