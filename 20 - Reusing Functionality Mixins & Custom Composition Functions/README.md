@@ -80,3 +80,61 @@ app.mount("#app");
 ## Disadvantages of Mixins
 
 - its not always obvious where something is happening..
+
+---
+
+## Composition API - Custom Hooks Composables & The Composition API
+
+- hooks are also called `Custom Hooks Composables`
+
+```js
+// hooks/alert.js
+import { ref } from "vue";
+
+export default function useAlert() {
+  const alertIsVisible = ref(false);
+
+  function showAlert() {
+    alertIsVisible.value = true;
+  }
+  function hideAlert() {
+    alertIsVisible.value = false;
+  }
+
+  return {
+    alertIsVisible,
+    showAlert,
+    hideAlert,
+  };
+}
+```
+
+- then use it in eg. AddUser.vue
+
+```vue
+<template>
+  <user-alert v-if="alertIsVisible" title="Add a User?" @close="hideAlert">
+    <p>Do you want to continue with adding a user?</p>
+  </user-alert>
+  <section>
+    <h2>Add a User</h2>
+    <button @click="showAlert">Add User</button>
+  </section>
+</template>
+
+<script>
+import UserAlert from "./UserAlert.vue";
+import useAlert from "../hooks/alert.vue";
+
+export default {
+  components: {
+    UserAlert,
+  },
+  setup() {
+    const [alertIsVisible, showAlert, hideAlert] = useAlert();
+
+    return { alertIsVisible, showAlert, hideAlert };
+  },
+};
+</script>
+```
