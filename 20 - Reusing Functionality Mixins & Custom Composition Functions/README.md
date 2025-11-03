@@ -43,3 +43,7 @@ export default {
 
 - the reusable logic is in UserAlert.vue
   - same data, methods, components:{}
+
+## Understanding Mixin Merging
+
+- when you merge in a mixin, `component option` vs `mixin`, the component options properties take preference if there is a clash with the same data property
