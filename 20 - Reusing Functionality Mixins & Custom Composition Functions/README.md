@@ -76,3 +76,7 @@ app.mixin(LoggerMixin);
 
 app.mount("#app");
 ```
+
+## Disadvantages of Mixins
+
+- its not always obvious where something is happening..
