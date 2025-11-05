@@ -138,3 +138,11 @@ export default {
 };
 </script>
 ```
+
+## More Custom Composition Functions
+
+- custom hooks can also receive parameters
+
+```js
+const [alertIsVisible, showAlert, hideAlert] = useAlert(true);
+```

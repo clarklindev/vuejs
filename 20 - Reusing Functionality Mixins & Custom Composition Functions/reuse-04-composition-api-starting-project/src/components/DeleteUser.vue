@@ -13,11 +13,11 @@ import UserAlert from './UserAlert.vue';
 import useAlert from '../hooks/alert.js';
 
 export default {
-  components: {
+  components: { 
     UserAlert,
   },
   setup() {
-    const [alertIsVisible, showAlert, hideAlert] = useAlert();
+    const [alertIsVisible, showAlert, hideAlert] = useAlert(true);
 
     return { alertIsVisible, showAlert, hideAlert };
   },
