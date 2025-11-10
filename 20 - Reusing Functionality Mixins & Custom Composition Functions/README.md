@@ -193,3 +193,8 @@ export function useSearch(items, searchProp) {
   };
 }
 ```
+
+## Custom Hooks Gotchas
+
+- useSearch() updated to take in props, specifically a ref and make sure its not null either or empty array
+- UserList.vue -> update props.users to be a ref with `const { users } = toRefs(props);`
