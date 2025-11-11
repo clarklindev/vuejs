@@ -208,3 +208,5 @@ watch(user, function () {
   updateSearch("");
 });
 ```
+
+## Example A Custom Sort Hook
